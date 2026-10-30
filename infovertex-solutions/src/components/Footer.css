@@ -1,0 +1,220 @@
+/* ============================================================
+   INFO VERTEX SOLUTIONS — Footer Styles
+   ============================================================ */
+
+.iv-footer {
+  background: #022C22;
+  color: #E2E8F0;
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* Main Footer */
+.iv-footer__main {
+  padding: 80px 0 60px 0;
+}
+
+.iv-footer__grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+  gap: 48px;
+}
+
+/* Brand Column */
+.iv-footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.iv-footer__logo-img {
+  height: 42px;
+  width: auto;
+  opacity: 0.96;
+  display: block;
+}
+
+.iv-footer__brand-text {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.iv-footer__tagline {
+  font-size: 0.875rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.iv-footer__contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.iv-footer__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: #CBD5E1;
+  transition: var(--transition);
+}
+
+.iv-footer__contact-item:hover {
+  color: var(--c-accent);
+}
+
+.iv-footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iv-footer__social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.08);
+  color: #CBD5E1;
+  transition: var(--transition);
+}
+
+.iv-footer__social-btn:hover {
+  background: var(--c-accent);
+  color: #022C22;
+  transform: translateY(-2px);
+}
+
+/* Links Columns */
+.iv-footer__heading {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+
+.iv-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.iv-footer__link {
+  font-size: 0.875rem;
+  color: #94A3B8;
+  transition: var(--transition);
+}
+
+.iv-footer__link:hover {
+  color: var(--c-accent);
+  padding-left: 4px;
+}
+
+/* Offices Column */
+.iv-footer__offices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.iv-footer__office-card {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-md);
+}
+
+.iv-footer__office-city {
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.iv-footer__office-addr {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  line-height: 1.4;
+}
+
+.iv-footer__badges {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.iv-footer__badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: #CBD5E1;
+  padding: 6px 12px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--r-full);
+}
+
+/* Bottom Bar */
+.iv-footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0;
+  font-size: 0.8125rem;
+  color: #64748B;
+}
+
+.iv-footer__bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.iv-footer__legal {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.iv-footer__legal-link {
+  color: #64748B;
+  transition: var(--transition);
+}
+
+.iv-footer__legal-link:hover {
+  color: #CBD5E1;
+}
+
+@media (max-width: 1024px) {
+  .iv-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .iv-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .iv-footer__prebanner-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

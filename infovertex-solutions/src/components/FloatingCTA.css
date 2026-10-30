@@ -1,0 +1,187 @@
+/* ============================================================
+   INFO VERTEX SOLUTIONS — Floating CTA Widget (Compact)
+   ============================================================ */
+
+.iv-floating-wrap {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* ── Compact circular button ── */
+.iv-floating-btn {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #064E3B;
+  color: #FFFFFF;
+  border: 2px solid rgba(16, 185, 129, 0.45);
+  box-shadow: 0 4px 20px rgba(2, 44, 34, 0.45), 0 0 0 0 rgba(16, 185, 129, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: floatPulse 3s ease-in-out infinite;
+}
+
+@keyframes floatPulse {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(2, 44, 34, 0.45), 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(2, 44, 34, 0.45), 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+}
+
+.iv-floating-btn:hover {
+  transform: scale(1.1) translateY(-2px);
+  border-color: var(--c-accent);
+  background: #064E3B;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+  animation: none;
+}
+
+.iv-floating-btn.active {
+  background: #022C22;
+  border-color: var(--c-accent);
+  animation: none;
+}
+
+/* Red notification dot */
+.iv-floating-btn__dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-cta);
+  border: 2px solid #FFFFFF;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.9); }
+}
+
+/* Hide dot when panel open */
+.iv-floating-btn.active .iv-floating-btn__dot {
+  display: none;
+}
+
+/* ── Expanded popup panel ── */
+.iv-floating-panel {
+  width: 300px;
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  animation: floatUp 0.2s ease-out;
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.iv-floating-panel__header {
+  background: #064E3B;
+  color: #FFFFFF;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iv-floating-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.iv-floating-panel__close {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 2px;
+  transition: var(--transition);
+}
+
+.iv-floating-panel__close:hover {
+  color: #FFFFFF;
+}
+
+.iv-floating-panel__body {
+  padding: 14px;
+}
+
+.iv-floating-panel__text {
+  font-size: 0.8rem;
+  color: var(--c-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.iv-floating-panel__perks {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.iv-floating-panel__perks .perk {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.73rem;
+  color: var(--c-text-muted);
+}
+
+.iv-floating-panel__direct {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: 1px solid var(--c-border-subtle);
+  padding-top: 9px;
+  margin-top: 2px;
+}
+
+.iv-floating-panel__direct .direct-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--c-text-muted);
+  transition: var(--transition);
+}
+
+.iv-floating-panel__direct .direct-item:hover {
+  color: var(--c-primary);
+}
+
+@media (max-width: 640px) {
+  .iv-floating-wrap {
+    bottom: 18px;
+    right: 18px;
+  }
+  .iv-floating-btn {
+    width: 46px;
+    height: 46px;
+  }
+  .iv-floating-panel {
+    width: 280px;
+  }
+}

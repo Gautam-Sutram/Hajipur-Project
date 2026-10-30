@@ -1,0 +1,53 @@
+/* FloatingCTA.css — OptimaDB Global */
+.floating-cta {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-3);
+  z-index: 900;
+}
+.floating-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow-lg);
+}
+.floating-btn--whatsapp {
+  width: 52px; height: 52px;
+  background: #25D366;
+  color: #fff;
+  justify-content: center;
+  font-size: 0;
+}
+.floating-btn--whatsapp:hover { background: #20ba57; transform: scale(1.1); }
+.floating-btn--sample {
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 12px 20px;
+  white-space: nowrap;
+}
+.floating-btn--sample:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+.floating-btn--top {
+  width: 44px; height: 44px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  justify-content: center;
+  border: 1px solid var(--color-border-light);
+  animation: fadeInUp 0.2s ease;
+}
+.floating-btn--top:hover { background: var(--color-primary); color: var(--color-white); }
+@media (max-width: 480px) {
+  .floating-cta { bottom: var(--space-4); right: var(--space-4); }
+  .floating-btn--sample span { display: none; }
+  .floating-btn--sample { width: 52px; height: 52px; padding: 0; justify-content: center; }
+}

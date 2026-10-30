@@ -1,0 +1,240 @@
+/* ============================================================
+   INFO VERTEX SOLUTIONS — Inner Pages Shared Styling
+   ============================================================ */
+
+/* Inner Page Hero Header */
+.iv-inner-hero {
+  padding-top: calc(var(--nav-height) + 54px);
+  padding-bottom: 64px;
+  background: linear-gradient(145deg, #022C22 0%, #064E3B 60%, #0A3D31 100%);
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.iv-inner-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.iv-inner-hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+}
+
+.iv-inner-hero__title {
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.iv-inner-hero__subtitle {
+  font-size: 1.125rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Breadcrumb */
+.iv-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: #94A3B8;
+  margin-bottom: 16px;
+}
+
+.iv-breadcrumb a {
+  color: #CBD5E1;
+  transition: var(--transition);
+}
+
+.iv-breadcrumb a:hover {
+  color: var(--c-accent);
+}
+
+.iv-breadcrumb .sep {
+  opacity: 0.5;
+}
+
+.iv-breadcrumb .current {
+  color: var(--c-accent);
+  font-weight: 600;
+}
+
+/* 2-Column Layout for Detail Pages */
+.iv-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 48px;
+  align-items: start;
+}
+
+.iv-detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.iv-detail-section-title {
+  font-size: 1.625rem;
+  margin-bottom: 20px;
+  color: var(--c-text);
+  border-bottom: 2px solid var(--c-primary-tint);
+  padding-bottom: 12px;
+}
+
+.iv-detail-p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--c-text-secondary);
+  margin-bottom: 16px;
+}
+
+/* Feature Cards Grid */
+.iv-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.iv-feature-box {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 24px;
+  transition: var(--transition);
+}
+
+.iv-feature-box:hover {
+  border-color: var(--c-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.iv-feature-box__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 8px;
+}
+
+.iv-feature-box__text {
+  font-size: 0.875rem;
+  color: var(--c-text-secondary);
+  line-height: 1.5;
+}
+
+/* Sidebar Box */
+.iv-sidebar-box {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: calc(var(--nav-height) + 24px);
+}
+
+.iv-sidebar-box__title {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--c-text);
+}
+
+.iv-sidebar-box__desc {
+  font-size: 0.875rem;
+  color: var(--c-text-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Inclusions List */
+.iv-inclusions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.iv-inclusions-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--c-text);
+}
+
+/* FAQ Accordion */
+.iv-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.iv-faq-item {
+  background: #FFFFFF;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.iv-faq-item:hover {
+  border-color: var(--c-accent);
+}
+
+.iv-faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+.iv-faq-answer {
+  padding: 0 24px 20px 24px;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--c-text-secondary);
+  border-top: 1px solid var(--c-border-subtle);
+  padding-top: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .iv-detail-layout {
+    grid-template-columns: 1fr;
+  }
+  .iv-sidebar-box {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .iv-features-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,8 @@
+# Robots.txt for OptimaDB Global
+# https://optimadbglobal.com
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://optimadbglobal.com/sitemap.xml

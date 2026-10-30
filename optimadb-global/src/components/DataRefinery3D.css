@@ -1,0 +1,296 @@
+/* ============================================================
+   OPTIMADB GLOBAL — 3D Holographic Data Refinery Core Styles
+   ============================================================ */
+
+.refinery3d-card {
+  background: radial-gradient(130% 100% at 50% 0%, #0F203C 0%, #08152B 55%, #020C1B 100%);
+  border: 1px solid rgba(0, 194, 255, 0.28);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 24px 60px -12px rgba(2, 12, 27, 0.8), 0 0 35px rgba(0, 194, 255, 0.15);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+}
+
+.refinery3d-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(0, 194, 255, 0.22) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Header */
+.refinery3d-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.refinery3d-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: rgba(0, 194, 255, 0.12);
+  border: 1px solid rgba(0, 194, 255, 0.3);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+}
+
+.refinery3d-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00C2FF;
+  box-shadow: 0 0 8px #00C2FF;
+  animation: pulseDot 2s infinite;
+}
+
+.refinery3d-speed-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* 3D Canvas Area */
+.refinery3d-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.refinery3d-canvas-wrap:active {
+  cursor: grabbing;
+}
+
+.refinery3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Holographic Stage HUD Tags */
+.refinery3d-hud-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.refinery3d-stage-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+}
+
+.refinery3d-stage-tag.mid {
+  color: #38BDF8;
+  border-color: rgba(0, 194, 255, 0.4);
+  background: rgba(0, 194, 255, 0.15);
+}
+
+.refinery3d-stage-tag.bot {
+  color: #10B981;
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.pulse-text {
+  animation: pulseOpacity 2s infinite ease-in-out;
+}
+
+@keyframes pulseOpacity {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.refinery3d-drag-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 25, 47, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 10px;
+  color: #94A3B8;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+/* Mode Selector Tabs */
+.refinery3d-modes-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+  flex-wrap: wrap;
+}
+
+.refinery3d-mode-btn {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
+  padding: 8px 12px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.refinery3d-mode-btn span {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.refinery3d-mode-btn small {
+  font-size: 9.5px;
+  color: #94A3B8;
+}
+
+.refinery3d-mode-btn:hover {
+  background: rgba(0, 194, 255, 0.15);
+  border-color: rgba(0, 194, 255, 0.35);
+  color: #FFFFFF;
+}
+
+.refinery3d-mode-btn.active {
+  background: linear-gradient(135deg, rgba(26, 60, 143, 0.5) 0%, rgba(0, 194, 255, 0.2) 100%);
+  border-color: var(--color-accent);
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(0, 194, 255, 0.25);
+}
+
+.refinery3d-mode-btn.active small {
+  color: #38BDF8;
+  font-weight: 600;
+}
+
+.refinery3d-spin-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 100%;
+}
+
+.refinery3d-spin-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.spin-anim {
+  animation: spin 10s linear infinite;
+}
+
+/* Bottom Metrics Strip */
+.refinery3d-metrics-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.refinery3d-metric {
+  text-align: center;
+}
+
+.refinery3d-metric-val {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: block;
+}
+
+.refinery3d-metric-lbl {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #94A3B8;
+  margin-top: 2px;
+  display: block;
+}
+
+.refinery3d-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 640px) {
+  .refinery3d-canvas-wrap {
+    height: 300px;
+  }
+  .refinery3d-metrics-strip {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .refinery3d-divider {
+    display: none;
+  }
+}

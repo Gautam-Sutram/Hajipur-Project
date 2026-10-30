@@ -1,0 +1,345 @@
+/* ============================================================
+   INFO VERTEX SOLUTIONS — 3D Vertex Intelligence Mesh Styles
+   ============================================================ */
+
+.vertex3d-card {
+  background: radial-gradient(130% 100% at 50% 0%, #03362A 0%, #022C22 55%, #011C15 100%);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 24px 60px -15px rgba(2, 44, 34, 0.7), 0 0 35px rgba(16, 185, 129, 0.12);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.vertex3d-card::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: 20%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Header */
+.vertex3d-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.vertex3d-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vertex3d-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseDot 2s infinite;
+}
+
+.vertex3d-title {
+  font-family: var(--font-heading);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6EE7B7;
+  margin: 0;
+}
+
+.vertex3d-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* 3D Canvas Area */
+.vertex3d-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.vertex3d-canvas-wrap:active {
+  cursor: grabbing;
+}
+
+.vertex3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Hovered Node Inspection Box */
+.vertex3d-inspect-box {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(2, 44, 34, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  min-width: 220px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.15);
+  pointer-events: none;
+  animation: fadeIn 0.2s ease;
+  z-index: 5;
+}
+
+.vertex3d-inspect-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13.5px;
+  color: #FFFFFF;
+}
+
+.vertex3d-inspect-orb {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.vertex3d-inspect-sla {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.vertex3d-inspect-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 8px;
+}
+
+.vertex3d-inspect-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.vertex3d-inspect-stat span {
+  color: #94A3B8;
+}
+
+.vertex3d-inspect-stat strong {
+  color: #ECFDF5;
+  font-weight: 600;
+}
+
+.vertex3d-drag-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(2, 44, 34, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 10px;
+  color: #94A3B8;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+/* Category Filter Pills Bar */
+.vertex3d-pills-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.vertex3d-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 5px 11px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vertex3d-pill-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #64748B;
+  transition: background 0.2s ease;
+}
+
+.vertex3d-pill:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #ECFDF5;
+}
+
+.vertex3d-pill:hover .vertex3d-pill-dot {
+  background: #10B981;
+}
+
+.vertex3d-pill.active {
+  background: #10B981;
+  color: #022C22;
+  border-color: #10B981;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
+}
+
+.vertex3d-pill.active .vertex3d-pill-dot {
+  background: #022C22;
+}
+
+.vertex3d-spin-toggle {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vertex3d-spin-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.spin-anim {
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Description Box */
+.vertex3d-desc-box {
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-top: 12px;
+}
+
+.vertex3d-desc-box p {
+  font-size: 11.5px;
+  color: #A7F3D0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Bottom Metrics Bar */
+.vertex3d-metrics-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.vertex3d-metric-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.vertex3d-metric-val {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.1;
+}
+
+.vertex3d-metric-lbl {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #94A3B8;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.vertex3d-cta-btn {
+  padding: 8px 18px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 640px) {
+  .vertex3d-canvas-wrap {
+    height: 300px;
+  }
+  .vertex3d-metrics-bar {
+    justify-content: center;
+    text-align: center;
+  }
+  .vertex3d-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

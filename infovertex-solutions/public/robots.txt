@@ -1,0 +1,8 @@
+# Robots.txt for Info Vertex Solutions
+# https://infovertexsolutions.com
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://infovertexsolutions.com/sitemap.xml

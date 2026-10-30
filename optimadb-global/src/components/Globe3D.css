@@ -1,0 +1,320 @@
+/* ============================================================
+   OPTIMADB GLOBAL — 3D Rotating Telemetry Globe Widget Styles
+   ============================================================ */
+
+.globe3d-container {
+  background: radial-gradient(130% 100% at 50% 0%, #0F203C 0%, #061224 50%, #020C1B 100%);
+  border: 1px solid rgba(0, 194, 255, 0.22);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 24px 60px -12px rgba(2, 12, 27, 0.75), 0 0 35px rgba(0, 194, 255, 0.12);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+}
+
+.globe3d-container::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(0, 194, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Top HUD Header */
+.globe3d-hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.globe3d-hud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: rgba(0, 194, 255, 0.12);
+  border: 1px solid rgba(0, 194, 255, 0.25);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+}
+
+.globe3d-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseDot 2s infinite;
+}
+
+.globe3d-hud-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.globe3d-hud-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #94A3B8;
+}
+
+.globe3d-stat-icon {
+  color: var(--color-accent);
+}
+
+/* Canvas Area */
+.globe3d-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.globe3d-canvas-wrap:active {
+  cursor: grabbing;
+}
+
+.globe3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Floating Hub Inspection Card */
+.globe3d-inspect-card {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(10, 25, 47, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 194, 255, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  min-width: 200px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  animation: fadeIn 0.2s ease;
+  z-index: 5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.globe3d-inspect-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #FFFFFF;
+}
+
+.globe3d-inspect-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 6px var(--color-accent);
+}
+
+.globe3d-inspect-region {
+  font-size: 10px;
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+.globe3d-inspect-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 6px;
+}
+
+.globe3d-inspect-label {
+  display: block;
+  font-size: 9.5px;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.globe3d-inspect-val {
+  display: block;
+  font-size: 12px;
+  color: #FFFFFF;
+  margin-top: 2px;
+}
+
+.globe3d-drag-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 25, 47, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 10px;
+  color: #94A3B8;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+/* Controls Bar */
+.globe3d-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
+  flex-wrap: wrap;
+}
+
+.globe3d-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.globe3d-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.globe3d-pill:hover {
+  background: rgba(0, 194, 255, 0.15);
+  border-color: rgba(0, 194, 255, 0.35);
+  color: #FFFFFF;
+}
+
+.globe3d-pill.active {
+  background: var(--color-accent);
+  color: #0A192F;
+  border-color: var(--color-accent);
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0, 194, 255, 0.35);
+}
+
+.globe3d-rotate-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.globe3d-rotate-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.spin-anim {
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bottom Metrics Strip */
+.globe3d-metrics-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.globe3d-metric {
+  text-align: center;
+}
+
+.globe3d-metric-num {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: block;
+}
+
+.globe3d-metric-lbl {
+  font-size: 10px;
+  color: #94A3B8;
+  margin-top: 2px;
+  display: block;
+}
+
+.globe3d-metric-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 640px) {
+  .globe3d-canvas-wrap {
+    height: 300px;
+  }
+  .globe3d-metrics-strip {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .globe3d-metric-divider {
+    display: none;
+  }
+}
