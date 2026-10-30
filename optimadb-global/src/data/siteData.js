@@ -1,20 +1,20 @@
 // Central data file for OptimaDB Global
-// Edit this file to update content across the entire site
+// Updated with 38 Non-Government Commercial Industries, 22 Primary Countries, and Trade Show Event Intelligence
 
 export const COMPANY = {
   name: 'OptimaDB Global',
   tagline: 'Your Gateway to Global Business Data',
-  description: 'Premium B2B data solutions — verified contact lists, data enrichment, email validation, and database cleansing across 170+ countries.',
+  description: 'Premium B2B data solutions — verified contact lists, data enrichment, email validation, trade show intelligence, and database cleansing across 170+ countries.',
   email: 'info@optimadbglobal.com',
   phone: '+1 (800) 000-0001',
   phone2: '+44 (20) 0000-0001',
   website: 'https://optimadbglobal.com',
-  year: '2024',
+  year: '2026',
   stats: [
-    { value: '170+', label: 'Countries Covered' },
+    { value: '50+', label: 'Countries Covered' },
     { value: '50M+', label: 'Verified Records' },
-    { value: '16+',  label: 'Industries Served' },
-    { value: '99.5%', label: 'Data Accuracy' },
+    { value: '10+', label: 'Industries Served' },
+    { value: '96%', label: 'Data Accuracy' },
   ],
   offices: [
     {
@@ -39,18 +39,331 @@ export const COMPANY = {
     twitter: '#',
     facebook: '#',
   },
-  compliance: ['GDPR', 'CCPA', 'SOC 2 Aligned'],
+  compliance: ['GDPR Compliant', 'CCPA Aligned', 'SOC 2 Type II Aligned', '100% Commercial Data'],
 }
 
+// 22 Primary Focus Countries explicitly requested by client (+ 170+ Global Markets)
+export const COUNTRIES = [
+  {
+    name: 'United States',
+    code: 'US',
+    region: 'Americas',
+    lat: 38.90,
+    lon: -77.03,
+    contacts: '18.4M+',
+    sla: '99.5%',
+    ping: '12ms',
+    color: '#00C2FF',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'IT, Healthcare, Finance, Industrial',
+    desc: 'Comprehensive coverage across Fortune 500, mid-market, and fast-growing enterprises.'
+  },
+  {
+    name: 'Canada',
+    code: 'CA',
+    region: 'Americas',
+    lat: 45.42,
+    lon: -75.69,
+    contacts: '4.8M+',
+    sla: '99.3%',
+    ping: '18ms',
+    color: '#38BDF8',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Energy, Mining, Banking, SaaS',
+    desc: 'Bilingual CASL-compliant executive and procurement contact datasets.'
+  },
+  {
+    name: 'United Kingdom',
+    code: 'GB',
+    region: 'EMEA',
+    lat: 51.50,
+    lon: -0.12,
+    contacts: '15.9M+',
+    sla: '99.6%',
+    ping: '16ms',
+    color: '#00C2FF',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Fintech, Professional Services, Media, Pharma',
+    desc: 'UK GDPR compliant intelligence covering London, Midlands, and Scottish tech corridors.'
+  },
+  {
+    name: 'Australia',
+    code: 'AU',
+    region: 'APAC',
+    lat: -35.28,
+    lon: 149.13,
+    contacts: '4.2M+',
+    sla: '99.2%',
+    ping: '38ms',
+    color: '#38BDF8',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Resources, Agribusiness, Real Estate, SaaS',
+    desc: 'Spam Act 2003 aligned coverage across Sydney, Melbourne, Brisbane, and Perth.'
+  },
+  {
+    name: 'Germany',
+    code: 'DE',
+    region: 'EMEA',
+    lat: 52.52,
+    lon: 13.40,
+    contacts: '11.3M+',
+    sla: '99.4%',
+    ping: '20ms',
+    color: '#00C2FF',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Automotive, Industrial Engineering, Power Electronics',
+    desc: 'Mittelstand and DAX enterprise leadership contacts with strict EU GDPR governance.'
+  },
+  {
+    name: 'France',
+    code: 'FR',
+    region: 'EMEA',
+    lat: 48.85,
+    lon: 2.35,
+    contacts: '8.6M+',
+    sla: '99.2%',
+    ping: '22ms',
+    color: '#38BDF8',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Fashion, Aerospace, Food Processing, Banking',
+    desc: 'CAC 40 and mid-tier commercial procurement, marketing, and operations executives.'
+  },
+  {
+    name: 'Italy',
+    code: 'IT',
+    region: 'EMEA',
+    lat: 41.90,
+    lon: 12.49,
+    contacts: '5.9M+',
+    sla: '99.1%',
+    ping: '24ms',
+    color: '#00C2FF',
+    tier: 'Primary Market',
+    keySectors: 'Industrial Design, Fashion, Manufacturing, Logistics',
+    desc: 'Northern industrial cluster and enterprise commerce decision-makers.'
+  },
+  {
+    name: 'Netherlands',
+    code: 'NL',
+    region: 'EMEA',
+    lat: 52.36,
+    lon: 4.90,
+    contacts: '4.7M+',
+    sla: '99.5%',
+    ping: '18ms',
+    color: '#38BDF8',
+    tier: 'Primary Market',
+    keySectors: 'Trade & Logistics, Renewable Energy, FinTech',
+    desc: 'European logistics crossroads and international corporate headquarters.'
+  },
+  {
+    name: 'Luxembourg',
+    code: 'LU',
+    region: 'EMEA',
+    lat: 49.61,
+    lon: 6.13,
+    contacts: '850K+',
+    sla: '99.6%',
+    ping: '19ms',
+    color: '#F59E0B',
+    tier: 'Financial Hub',
+    keySectors: 'Investment Funds, Private Banking, FinTech',
+    desc: 'Ultra-concentrated European investment fund management and private banking rosters.'
+  },
+  {
+    name: 'Portugal',
+    code: 'PT',
+    region: 'EMEA',
+    lat: 38.72,
+    lon: -9.13,
+    contacts: '2.1M+',
+    sla: '99.0%',
+    ping: '25ms',
+    color: '#38BDF8',
+    tier: 'Primary Market',
+    keySectors: 'Hospitality, Textile, Renewable Energy, Tech Hubs',
+    desc: 'Lisbon and Porto emerging tech, tourism, and industrial manufacturing sectors.'
+  },
+  {
+    name: 'Spain',
+    code: 'ES',
+    region: 'EMEA',
+    lat: 40.41,
+    lon: -3.70,
+    contacts: '6.4M+',
+    sla: '99.2%',
+    ping: '23ms',
+    color: '#00C2FF',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Renewable Energy, Tourism, Construction, Telecom',
+    desc: 'Madrid, Barcelona, and Valencia commercial enterprise decision-makers.'
+  },
+  {
+    name: 'Turkey',
+    code: 'TR',
+    region: 'EMEA',
+    lat: 39.93,
+    lon: 32.85,
+    contacts: '3.8M+',
+    sla: '99.0%',
+    ping: '29ms',
+    color: '#F59E0B',
+    tier: 'Cross-Continental',
+    keySectors: 'Textile, Industrial Products, Logistics, Petroleum',
+    desc: 'Eurasian manufacturing, transshipment logistics, and commercial trade leads.'
+  },
+  {
+    name: 'Russia',
+    code: 'RU',
+    region: 'EMEA',
+    lat: 55.75,
+    lon: 37.61,
+    contacts: '4.5M+',
+    sla: '98.8%',
+    ping: '34ms',
+    color: '#38BDF8',
+    tier: 'Regional Market',
+    keySectors: 'Energy, Metals, Heavy Industry, Commercial Trade',
+    desc: 'Commercial industrial enterprise, manufacturing, and raw material business contacts.'
+  },
+  {
+    name: 'Ireland',
+    code: 'IE',
+    region: 'EMEA',
+    lat: 53.34,
+    lon: -6.26,
+    contacts: '2.9M+',
+    sla: '99.5%',
+    ping: '15ms',
+    color: '#00C2FF',
+    tier: 'Tech & Pharma Hub',
+    keySectors: 'Global SaaS HQs, Medical Devices, Pharma, Aircraft Leasing',
+    desc: 'European headquarters for global technology, medical, and pharmaceutical giants.'
+  },
+  {
+    name: 'Finland',
+    code: 'FI',
+    region: 'EMEA',
+    lat: 60.16,
+    lon: 24.93,
+    contacts: '1.8M+',
+    sla: '99.4%',
+    ping: '22ms',
+    color: '#38BDF8',
+    tier: 'Nordic Market',
+    keySectors: 'Cleantech, Forest Industry, Power Electronics, Telecom',
+    desc: 'Advanced forestry, wireless technology, and high-tech manufacturing leads.'
+  },
+  {
+    name: 'Denmark',
+    code: 'DK',
+    region: 'EMEA',
+    lat: 55.67,
+    lon: 12.56,
+    contacts: '2.2M+',
+    sla: '99.5%',
+    ping: '21ms',
+    color: '#00C2FF',
+    tier: 'Nordic Market',
+    keySectors: 'Wind Energy, Shipping & Logistics, Pharma, Design',
+    desc: 'Global maritime shipping, life sciences, and renewable energy conglomerates.'
+  },
+  {
+    name: 'China',
+    code: 'CN',
+    region: 'APAC',
+    lat: 39.90,
+    lon: 116.40,
+    contacts: '16.5M+',
+    sla: '99.0%',
+    ping: '32ms',
+    color: '#00C2FF',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Electronics, Industrial Products, E-Commerce, Textiles',
+    desc: 'Verified enterprise contacts across Shanghai, Shenzhen, Beijing, and Guangzhou.'
+  },
+  {
+    name: 'India',
+    code: 'IN',
+    region: 'APAC',
+    lat: 28.61,
+    lon: 77.20,
+    contacts: '12.4M+',
+    sla: '99.1%',
+    ping: '26ms',
+    color: '#F59E0B',
+    tier: 'High-Growth Hub',
+    keySectors: 'IT Services, Pharma & Drugs, Engineering, Textiles',
+    desc: 'High-growth commercial technology, manufacturing, and pharma hubs across Bengaluru, Mumbai, and Delhi NCR.'
+  },
+  {
+    name: 'Japan',
+    code: 'JP',
+    region: 'APAC',
+    lat: 35.67,
+    lon: 139.65,
+    contacts: '10.8M+',
+    sla: '99.4%',
+    ping: '30ms',
+    color: '#00C2FF',
+    tier: 'Tier 1 Global Hub',
+    keySectors: 'Robotics, Automotive, Power Electronics, Precision Engineering',
+    desc: 'Keiretsu and enterprise procurement executives with verified direct-dial accuracy.'
+  },
+  {
+    name: 'UAE',
+    code: 'AE',
+    region: 'EMEA',
+    lat: 24.45,
+    lon: 54.37,
+    contacts: '3.9M+',
+    sla: '99.3%',
+    ping: '28ms',
+    color: '#F59E0B',
+    tier: 'Middle East Gateway',
+    keySectors: 'Petroleum, Real Estate, Investment, Hospitality, Logistics',
+    desc: 'Dubai and Abu Dhabi holding groups, family conglomerates, and international trade entities.'
+  },
+  {
+    name: 'Taiwan',
+    code: 'TW',
+    region: 'APAC',
+    lat: 25.03,
+    lon: 121.56,
+    contacts: '2.8M+',
+    sla: '99.4%',
+    ping: '28ms',
+    color: '#38BDF8',
+    tier: 'Tech Hardware Hub',
+    keySectors: 'Semiconductors, Hardware, Mechanical Engineering, Electronics',
+    desc: 'Hsinchu and Taipei advanced electronics, foundries, and industrial components.'
+  },
+  {
+    name: 'Hong Kong',
+    code: 'HK',
+    region: 'APAC',
+    lat: 22.31,
+    lon: 114.16,
+    contacts: '3.4M+',
+    sla: '99.5%',
+    ping: '27ms',
+    color: '#00C2FF',
+    tier: 'Financial Gateway',
+    keySectors: 'Asset Management, Trade & Sourcing, Real Estate, Shipping',
+    desc: 'APAC commercial trading houses, private equity, and multinational regional hubs.'
+  }
+]
+
+// 10 Core Services including Event Audience & Trade Show Intelligence
 export const SERVICES = [
   {
     id: 'b2b-contact-data',
     code: 'SVC/01',
     title: 'B2B Contact Data',
-    shortDesc: 'Verified business contacts across 170+ countries, ready for your next campaign.',
-    fullDesc: 'Access our massive database of verified B2B contacts spanning 170+ countries and 16+ industries. Every record is enriched with job titles, direct emails, phone numbers, company details, and firmographic data — verified through our 7-step process and refreshed every 7 days.',
+    shortDesc: 'Verified business contacts across 170+ countries, ready for your next outbound campaign.',
+    fullDesc: 'Access our massive database of verified B2B contacts spanning 170+ countries and 38+ commercial industries. Every record is enriched with job titles, direct emails, phone numbers, company details, and firmographic data — verified through our 7-step process and refreshed every 7 days.',
     icon: 'Database',
-    features: ['170+ countries', '50M+ verified records', '16+ industries', '7-day refresh cycle', 'Direct & corporate emails', 'Phone numbers included'],
+    features: ['170+ countries', '50M+ verified records', '38+ commercial industries', '7-day refresh cycle', 'Direct & corporate emails', 'Direct dials included'],
   },
   {
     id: 'database-cleansing',
@@ -65,7 +378,7 @@ export const SERVICES = [
     id: 'data-enrichment',
     code: 'SVC/03',
     title: 'Data Enrichment',
-    shortDesc: 'Fill gaps with firmographics, job titles, and social profiles.',
+    shortDesc: 'Fill gaps with firmographics, direct dials, job titles, and verified social profiles.',
     fullDesc: 'Transform thin records into rich, actionable profiles. We append missing firmographic details, job titles, LinkedIn profiles, company size, revenue, technology stack, and more — giving your sales and marketing teams the full context they need to personalize and convert.',
     icon: 'TrendingUp',
     features: ['Firmographic data append', 'Job title enhancement', 'LinkedIn profile matching', 'Company size & revenue', 'Technology stack data', 'Social profile links'],
@@ -119,142 +432,526 @@ export const SERVICES = [
     id: 'market-research-data',
     code: 'SVC/09',
     title: 'Market Research Data',
-    shortDesc: 'Custom datasets built around your exact market question.',
+    shortDesc: 'Custom datasets built around your exact commercial inquiry and market expansion model.',
     fullDesc: "Don't settle for generic data. Tell us your market question and we'll build a custom dataset around it — from niche industry contacts and competitor customer lists, to event attendee data, regulatory decision-makers, and hard-to-find executive contacts across any geography.",
     icon: 'BarChart3',
-    features: ['Custom dataset building', 'Niche industry coverage', 'Event attendee data', 'Competitor intelligence', 'Decision-maker targeting', 'Delivery in any format'],
+    features: ['Custom dataset building', 'Niche industry coverage', 'Competitor intelligence', 'Decision-maker targeting', 'Delivery in any format', 'Dedicated researchers'],
+  },
+  {
+    id: 'event-audience-intelligence',
+    code: 'SVC/10',
+    title: 'Event Audience & Trade Show Intelligence',
+    shortDesc: 'Verified exhibitor directories, keynote rosters, and attendee intelligence across 500+ global expos.',
+    fullDesc: 'Maximize your trade show and conference ROI before stepping foot on the expo floor. We conduct meticulous verified research to deliver registered exhibitors, booth manager direct dials, keynote speakers, and verified attendee intelligence across marquee conventions worldwide — including CES, MWC, Gitex, Hannover Messe, Arab Health, and IMTS.',
+    icon: 'Calendar',
+    features: ['500+ annual marquee trade shows', 'Confirmed booth exhibitors & sponsors', 'Pre-show meeting booking lists', 'Keynote speaker & panelist rosters', 'Post-event nurture datasets', 'Turnaround under 24 hours'],
   },
 ]
 
+// 38 Verified Commercial Industries (Strictly ZERO Government Industries)
 export const INDUSTRIES = [
   {
-    name: 'Technology & SaaS',
-    icon: 'Cpu',
-    contacts: '14.2M+',
-    decisionMakers: ['CIO & CTO', 'VP Engineering', 'IT Directors'],
-    sla: '99.4%',
-    desc: 'CIOs, CTOs, software architectures, cybersecurity heads, and enterprise SaaS buyers worldwide.'
-  },
-  {
-    name: 'Healthcare & Pharma',
-    icon: 'Heart',
-    contacts: '8.9M+',
-    decisionMakers: ['Hospital Admins', 'Procurement Leads', 'Clinical Chiefs'],
-    sla: '99.1%',
-    desc: 'Hospital administrators, procurement officers, pharmaceutical executives, and clinical leads.'
-  },
-  {
-    name: 'Financial Services & Fintech',
-    icon: 'Landmark',
-    contacts: '7.4M+',
-    decisionMakers: ['Managing Directors', 'Risk & Compliance', 'Fintech Founders'],
-    sla: '99.3%',
-    desc: 'Investment banking, commercial insurance, wealth management, and fintech decision-makers.'
-  },
-  {
-    name: 'Manufacturing & Industry 4.0',
-    icon: 'Factory',
-    contacts: '5.8M+',
-    decisionMakers: ['Plant Managers', 'Supply Chain VPs', 'Operations Directors'],
-    sla: '99.0%',
-    desc: 'Plant operations heads, robotics/automation leads, supply chain buyers, and facility managers.'
-  },
-  {
-    name: 'Real Estate & Infrastructure',
-    icon: 'Building2',
-    contacts: '3.9M+',
-    decisionMakers: ['Commercial Developers', 'Asset Managers', 'REIT Partners'],
-    sla: '99.2%',
-    desc: 'Commercial property developers, enterprise brokers, REIT managers, and urban infrastructure leads.'
-  },
-  {
-    name: 'Education & EdTech',
+    name: 'Education & Training',
+    category: 'Education & Services',
     icon: 'GraduationCap',
-    contacts: '3.5M+',
-    decisionMakers: ['Provosts & Deans', 'EdTech Buyers', 'Superintendents'],
-    sla: '99.0%',
-    desc: 'University chancellors, K-12 superintendents, corporate L&D leaders, and EdTech procurement.'
-  },
-  {
-    name: 'Retail & E-Commerce',
-    icon: 'ShoppingCart',
-    contacts: '6.1M+',
-    decisionMakers: ['Omnichannel VPs', 'Merchandising Heads', 'D2C Founders'],
-    sla: '99.3%',
-    desc: 'Global retail directors, brand managers, e-commerce VPs, and supply chain merchants.'
-  },
-  {
-    name: 'Energy, CleanTech & Utilities',
-    icon: 'Zap',
-    contacts: '3.2M+',
-    decisionMakers: ['Grid Operators', 'Sustainability Chiefs', 'Renewables VPs'],
+    contacts: '3.6M+',
+    decisionMakers: ['Provosts & Deans', 'Corporate L&D Directors', 'EdTech Buyers'],
     sla: '99.2%',
-    desc: 'Solar/wind project directors, utility plant operators, power traders, and ESG compliance officers.'
+    desc: 'University chancellors, corporate learning & development leaders, private academies, and EdTech procurement heads.'
   },
   {
-    name: 'Logistics & Supply Chain',
-    icon: 'Truck',
-    contacts: '4.6M+',
-    decisionMakers: ['Fleet Directors', 'Global Logistics VPs', 'Warehouse Leads'],
-    sla: '99.1%',
-    desc: 'Freight forwarders, intermodal fleet operators, 3PL leaders, and global fulfillment executives.'
-  },
-  {
-    name: 'Legal & Corporate Compliance',
-    icon: 'Scale',
-    contacts: '2.7M+',
-    decisionMakers: ['General Counsel', 'Managing Partners', 'Chief Risk Officers'],
-    sla: '99.4%',
-    desc: 'Corporate general counsels, international law partners, chief compliance officers, and IP attorneys.'
-  },
-  {
-    name: 'Marketing, Media & AdTech',
-    icon: 'Megaphone',
-    contacts: '4.1M+',
-    decisionMakers: ['CMOs & Brand Heads', 'Agency Owners', 'Media Directors'],
-    sla: '99.5%',
-    desc: 'Enterprise CMOs, advertising agency owners, media planners, and performance marketing leads.'
-  },
-  {
-    name: 'Government & Public Sector',
-    icon: 'Globe',
-    contacts: '2.2M+',
-    decisionMakers: ['Procurement Officers', 'Agency Directors', 'Municipal Leads'],
-    sla: '98.9%',
-    desc: 'Municipal authorities, federal contract managers, state procurement commissioners, and defense buyers.'
-  },
-  {
-    name: 'Hospitality & Travel Tech',
-    icon: 'Building2',
-    contacts: '3.1M+',
-    decisionMakers: ['Hotel GMs', 'Asset Owners', 'Travel Tech Buyers'],
-    sla: '99.0%',
-    desc: 'Resort operations heads, hotel group general managers, booking platform executives, and venue operators.'
-  },
-  {
-    name: 'Agriculture & AgriTech',
-    icon: 'Zap',
-    contacts: '1.8M+',
-    decisionMakers: ['Agribusiness VPs', 'Farming Co-op Leads', 'Food Scientists'],
-    sla: '98.8%',
-    desc: 'Agribusiness executives, commercial farm operators, biotechnology researchers, and crop traders.'
-  },
-  {
-    name: 'Telecommunications & Networks',
+    name: 'IT & Technology',
+    category: 'Technology & Engineering',
     icon: 'Cpu',
-    contacts: '3.7M+',
-    decisionMakers: ['Network VPs', 'Telecom Buyers', 'Infrastructure Leads'],
-    sla: '99.3%',
-    desc: 'Fiber operators, wireless network directors, 5G infrastructure leads, and carrier procurement heads.'
+    contacts: '15.4M+',
+    decisionMakers: ['CIO & CTO', 'VP Engineering', 'Cloud & Security Directors'],
+    sla: '99.5%',
+    desc: 'Enterprise software architects, cybersecurity leads, cloud infrastructure managers, and high-growth SaaS founders.'
   },
   {
-    name: 'Aerospace & Defense',
-    icon: 'ShieldCheck',
-    contacts: '1.4M+',
-    decisionMakers: ['Aviation Program Leads', 'Defense Contractors', 'R&D Heads'],
-    sla: '99.6%',
-    desc: 'Aviation systems directors, defense contracting executives, avionics engineers, and compliance leaders.'
+    name: 'Banking & Finance',
+    category: 'Finance & Legal',
+    icon: 'Landmark',
+    contacts: '8.2M+',
+    decisionMakers: ['Managing Directors', 'Chief Risk Officers', 'Compliance Heads'],
+    sla: '99.4%',
+    desc: 'Commercial banks, credit unions, capital markets, wealth advisory firms, and institutional asset managers.'
   },
+  {
+    name: 'Medical & Pharma',
+    category: 'Healthcare & Life Sciences',
+    icon: 'HeartPulse',
+    contacts: '9.4M+',
+    decisionMakers: ['Hospital Administrators', 'Procurement Chiefs', 'Clinical Leads'],
+    sla: '99.3%',
+    desc: 'Hospital systems, medical device manufacturers, clinical trial operators, and specialized healthcare networks.'
+  },
+  {
+    name: 'Business Services',
+    category: 'Services & Operations',
+    icon: 'Briefcase',
+    contacts: '7.1M+',
+    decisionMakers: ['Managing Partners', 'Operations VPs', 'Procurement Heads'],
+    sla: '99.1%',
+    desc: 'Management consultancies, accounting firms, corporate law practices, and enterprise outsourcing providers.'
+  },
+  {
+    name: 'Wellness, Health & Fitness',
+    category: 'Healthcare & Consumer',
+    icon: 'Dumbbell',
+    contacts: '2.8M+',
+    decisionMakers: ['Fitness Chain Operators', 'Wellness Directors', 'Nutritional Product Buyers'],
+    sla: '99.0%',
+    desc: 'Gym franchise operators, wellness retreat executives, corporate health directors, and physical rehabilitation centers.'
+  },
+  {
+    name: 'Industrial Engineering',
+    category: 'Manufacturing & Engineering',
+    icon: 'Wrench',
+    contacts: '6.2M+',
+    decisionMakers: ['Chief Engineers', 'Plant Directors', 'Automation Leads'],
+    sla: '99.2%',
+    desc: 'Robotics system integrators, precision toolmakers, heavy machinery designers, and plant optimization heads.'
+  },
+  {
+    name: 'Entertainment & Media',
+    category: 'Media & Arts',
+    icon: 'Film',
+    contacts: '4.3M+',
+    decisionMakers: ['Executive Producers', 'Broadcast Directors', 'Publishing Heads'],
+    sla: '99.1%',
+    desc: 'Streaming media executives, digital production studios, broadcast networks, talent agencies, and gaming developers.'
+  },
+  {
+    name: 'Building & Construction',
+    category: 'Construction & Real Estate',
+    icon: 'Building2',
+    contacts: '5.5M+',
+    decisionMakers: ['General Contractors', 'Project Directors', 'Procurement Officers'],
+    sla: '99.0%',
+    desc: 'Commercial construction firms, civil engineering contractors, building material suppliers, and site managers.'
+  },
+  {
+    name: 'Power & Energy',
+    category: 'Energy & Resources',
+    icon: 'Zap',
+    contacts: '4.1M+',
+    decisionMakers: ['Grid Operators', 'Plant Managers', 'Utility VPs'],
+    sla: '99.3%',
+    desc: 'Thermal plants, electrical grid authorities, transmission network operators, and industrial energy distributors.'
+  },
+  {
+    name: 'Investment',
+    category: 'Finance & Legal',
+    icon: 'TrendingUp',
+    contacts: '3.4M+',
+    decisionMakers: ['Private Equity Partners', 'Venture Principals', 'Family Office CIOs'],
+    sla: '99.5%',
+    desc: 'Venture capital funds, private equity GPs, angel syndicates, sovereign wealth analysts, and family office principals.'
+  },
+  {
+    name: 'Job Fair',
+    category: 'HR & Talent',
+    icon: 'Users',
+    contacts: '1.9M+',
+    decisionMakers: ['Event Organizers', 'Campus Recruitment Heads', 'Talent Acquisition VPs'],
+    sla: '99.0%',
+    desc: 'Career expo producers, corporate recruitment coordinators, university placement heads, and talent summit organizers.'
+  },
+  {
+    name: 'Arts & Crafts',
+    category: 'Consumer & Retail',
+    icon: 'Palette',
+    contacts: '1.4M+',
+    decisionMakers: ['Creative Directors', 'Gallery Owners', 'Craft Supply Retailers'],
+    sla: '98.9%',
+    desc: 'Commercial art galleries, artisanal manufacturers, wholesale craft distributors, and creative studio operators.'
+  },
+  {
+    name: 'HR, Jobs & Career',
+    category: 'HR & Talent',
+    icon: 'UserCheck',
+    contacts: '5.8M+',
+    decisionMakers: ['CHRO & HR VPs', 'Staffing Agency Owners', 'Head of Talent'],
+    sla: '99.4%',
+    desc: 'Corporate human resources executives, executive search recruiters, staffing agency partners, and HR tech buyers.'
+  },
+  {
+    name: 'Drugs & Medicines',
+    category: 'Healthcare & Life Sciences',
+    icon: 'Pill',
+    contacts: '3.7M+',
+    decisionMakers: ['Formulation Scientists', 'Pharma Supply Heads', 'Regulatory Affairs VPs'],
+    sla: '99.4%',
+    desc: 'Pharmaceutical compounding labs, generic medicine manufacturers, API suppliers, and biotech formulation heads.'
+  },
+  {
+    name: 'Agriculture & Forestry',
+    category: 'Energy & Resources',
+    icon: 'TreePine',
+    contacts: '2.5M+',
+    decisionMakers: ['Agribusiness VPs', 'Forestry Managers', 'Timber Sourcing Leads'],
+    sla: '98.9%',
+    desc: 'Commercial timber harvesting, agribusiness conglomerates, agricultural equipment distributors, and farming co-ops.'
+  },
+  {
+    name: 'Logistics & Transportation',
+    category: 'Transportation & Logistics',
+    icon: 'Truck',
+    contacts: '6.4M+',
+    decisionMakers: ['Supply Chain VPs', 'Fleet Directors', 'Freight Forwarding Heads'],
+    sla: '99.2%',
+    desc: '3PL providers, air & ocean freight carriers, intermodal trucking operators, and global warehousing directors.'
+  },
+  {
+    name: 'Food & Beverages',
+    category: 'Food, Beverage & Hospitality',
+    icon: 'UtensilsCrossed',
+    contacts: '5.1M+',
+    decisionMakers: ['F&B Directors', 'Wholesale Distributors', 'Brand Managers'],
+    sla: '99.1%',
+    desc: 'Beverage bottling plants, commercial food brands, specialty ingredient suppliers, and national grocery distributors.'
+  },
+  {
+    name: 'Petroleum, Oil & Gas',
+    category: 'Energy & Resources',
+    icon: 'Flame',
+    contacts: '3.9M+',
+    decisionMakers: ['Drilling Directors', 'Refinery Heads', 'Petrochemical Buyers'],
+    sla: '99.3%',
+    desc: 'Upstream exploration companies, midstream pipelines, downstream refineries, and offshore equipment vendors.'
+  },
+  {
+    name: 'Architecture & Designing',
+    category: 'Construction & Real Estate',
+    icon: 'Compass',
+    contacts: '2.7M+',
+    decisionMakers: ['Principal Architects', 'Urban Planners', 'Interior Design Partners'],
+    sla: '99.2%',
+    desc: 'AIA architectural firms, landscape designers, commercial interior studios, and master planning consultants.'
+  },
+  {
+    name: 'Apparel & Clothing',
+    category: 'Consumer & Retail',
+    icon: 'Shirt',
+    contacts: '4.2M+',
+    decisionMakers: ['Fashion Merchandisers', 'Garment Sourcing VPs', 'Apparel Brand Owners'],
+    sla: '99.0%',
+    desc: 'Apparel brand directors, garment export houses, retail merchandising heads, and sustainable fashion manufacturers.'
+  },
+  {
+    name: 'Print & Printing',
+    category: 'Manufacturing & Engineering',
+    icon: 'Printer',
+    contacts: '1.8M+',
+    decisionMakers: ['Commercial Print Owners', 'Packaging Prepress Leads', 'Large-Format Managers'],
+    sla: '98.8%',
+    desc: 'Commercial litho & digital printers, industrial packaging print shops, label converters, and prepress facilities.'
+  },
+  {
+    name: 'Faishon & Technologies',
+    category: 'Consumer & Retail',
+    icon: 'Sparkles',
+    contacts: '2.3M+',
+    decisionMakers: ['Wearables Heads', 'Fashion Tech Founders', '3D Design Leads'],
+    sla: '99.2%',
+    desc: 'Smart clothing innovators, 3D body-scanning developers, virtual fitting tech creators, and luxury fashion houses.'
+  },
+  {
+    name: 'E-Commerce',
+    category: 'Consumer & Retail',
+    icon: 'ShoppingCart',
+    contacts: '7.9M+',
+    decisionMakers: ['D2C Founders', 'E-Commerce VPs', 'Marketplace Directors'],
+    sla: '99.4%',
+    desc: 'Shopify Plus merchants, Amazon FBA brand aggregators, enterprise retail e-tailers, and payment gateway leads.'
+  },
+  {
+    name: 'Mechanical Engineering',
+    category: 'Manufacturing & Engineering',
+    icon: 'Cog',
+    contacts: '4.7M+',
+    decisionMakers: ['Lead Mechanical Engineers', 'R&D Directors', 'Tooling Specialists'],
+    sla: '99.2%',
+    desc: 'Hydraulics, precision tooling, thermodynamic engineers, industrial valve makers, and machinery designers.'
+  },
+  {
+    name: 'Training & Development',
+    category: 'Education & Services',
+    icon: 'BookOpen',
+    contacts: '3.1M+',
+    decisionMakers: ['Chief Learning Officers', 'Corporate Coaches', 'Instructional Designers'],
+    sla: '99.1%',
+    desc: 'Executive coaching firms, corporate training academies, safety certification centers, and leadership consultants.'
+  },
+  {
+    name: 'Hotel & Restaurant',
+    category: 'Food, Beverage & Hospitality',
+    icon: 'Utensils',
+    contacts: '4.8M+',
+    decisionMakers: ['General Managers', 'Executive Chefs', 'Purchasing Directors'],
+    sla: '99.0%',
+    desc: 'Restaurant group operators, commercial kitchen equipment buyers, hotel food & beverage executives, and caterers.'
+  },
+  {
+    name: 'Hospitality',
+    category: 'Food, Beverage & Hospitality',
+    icon: 'Hotel',
+    contacts: '4.4M+',
+    decisionMakers: ['Resort Owners', 'Hospitality VPs', 'Guest Experience Chiefs'],
+    sla: '99.1%',
+    desc: 'Luxury resort chains, boutique hotel groups, convention centers, and destination property management firms.'
+  },
+  {
+    name: 'Industrial Products',
+    category: 'Manufacturing & Engineering',
+    icon: 'Package',
+    contacts: '5.3M+',
+    decisionMakers: ['Wholesale Distributors', 'Product Managers', 'B2B Sales Directors'],
+    sla: '99.1%',
+    desc: 'Industrial safety equipment, conveyor systems, commercial abrasives, fastening solutions, and factory hardware.'
+  },
+  {
+    name: 'Construction engineering',
+    category: 'Construction & Real Estate',
+    icon: 'HardHat',
+    contacts: '3.8M+',
+    decisionMakers: ['Structural Engineers', 'Geotechnical Leads', 'Infrastructure VPs'],
+    sla: '99.0%',
+    desc: 'Bridge & highway contractors, structural engineering consultants, foundation specialists, and tunneling engineers.'
+  },
+  {
+    name: 'Power electronics',
+    category: 'Manufacturing & Engineering',
+    icon: 'BatteryCharging',
+    contacts: '2.6M+',
+    decisionMakers: ['Hardware Architects', 'Inverter Engineers', 'Power Grid Leads'],
+    sla: '99.3%',
+    desc: 'EV inverter manufacturers, semiconductor packaging specialists, switchgear engineers, and power module makers.'
+  },
+  {
+    name: 'Packing & Packaging',
+    category: 'Manufacturing & Engineering',
+    icon: 'Box',
+    contacts: '3.5M+',
+    decisionMakers: ['Packaging Engineers', 'Procurement Managers', 'Corrugated Plant Leads'],
+    sla: '99.0%',
+    desc: 'Corrugated box manufacturers, flexible pouch converters, blow-molding plants, and eco-packaging innovators.'
+  },
+  {
+    name: 'Textile, Fabrics & Yarns',
+    category: 'Manufacturing & Engineering',
+    icon: 'Layers',
+    contacts: '2.9M+',
+    decisionMakers: ['Mill Owners', 'Textile Chemists', 'Yarn Sourcing Heads'],
+    sla: '98.9%',
+    desc: 'Spinning mills, technical fabric producers, industrial weaving plants, and commercial synthetic yarn exporters.'
+  },
+  {
+    name: 'Renewable Energy',
+    category: 'Energy & Resources',
+    icon: 'Sun',
+    contacts: '3.7M+',
+    decisionMakers: ['Solar Project Developers', 'Wind Energy VPs', 'BESS Specialists'],
+    sla: '99.4%',
+    desc: 'Utility-scale solar developers, offshore wind farm operators, battery storage developers, and clean hydrogen engineers.'
+  },
+  {
+    name: 'Real Estate & Property',
+    category: 'Construction & Real Estate',
+    icon: 'Home',
+    contacts: '5.2M+',
+    decisionMakers: ['Commercial Brokers', 'Property Asset Managers', 'REIT Executives'],
+    sla: '99.2%',
+    desc: 'Commercial property developers, asset managers, corporate tenant brokers, and real estate investment trusts.'
+  },
+  {
+    name: 'Risk Management',
+    category: 'Finance & Legal',
+    icon: 'ShieldAlert',
+    contacts: '2.4M+',
+    decisionMakers: ['Chief Risk Officers', 'Enterprise Risk Directors', 'Actuarial Heads'],
+    sla: '99.5%',
+    desc: 'Corporate risk directors, reinsurance actuaries, cybersecurity liability brokers, and disaster recovery leads.'
+  },
+  {
+    name: 'Travel & Tourism',
+    category: 'Food, Beverage & Hospitality',
+    icon: 'Plane',
+    contacts: '3.3M+',
+    decisionMakers: ['Tour Operators', 'Cruise Line VPs', 'Destination Marketing Heads'],
+    sla: '98.9%',
+    desc: 'Inbound tour operators, cruise line procurement directors, airline commercial managers, and travel tech platforms.'
+  },
+  {
+    name: 'Food Processing',
+    category: 'Food, Beverage & Hospitality',
+    icon: 'Apple',
+    contacts: '3.8M+',
+    decisionMakers: ['Plant Quality Heads', 'Processing Line VPs', 'HACCP Compliance Leads'],
+    sla: '99.1%',
+    desc: 'Commercial meat & poultry processors, dairy packaging plants, frozen food facilities, and industrial bakery chains.'
+  }
+]
+
+// Marquee Trade Shows & Event Intelligence (500+ Annual Events Covered)
+export const EVENTS_SHOWCASE = [
+  {
+    id: 'ces-vegas',
+    name: 'CES (Consumer Electronics Show)',
+    location: 'Las Vegas, NV, USA',
+    region: 'North America',
+    date: 'January 2025',
+    category: 'IT, AI & Hardware',
+    attendees: '140,000+',
+    exhibitors: '4,300+',
+    verifiedRecords: '68,400+',
+    badge: 'Flagship Event',
+    desc: 'Global technology leaders, hardware innovators, IoT engineers, and Fortune 500 procurement executives.'
+  },
+  {
+    id: 'mwc-barcelona',
+    name: 'MWC (Mobile World Congress)',
+    location: 'Barcelona, Spain',
+    region: 'Europe',
+    date: 'March 2025',
+    category: 'Telecom & 5G',
+    attendees: '105,000+',
+    exhibitors: '2,800+',
+    verifiedRecords: '52,100+',
+    badge: 'European Marquee',
+    desc: 'Global telecom carriers, smartphone OEMs, 5G infrastructure leads, and enterprise cloud heads.'
+  },
+  {
+    id: 'gitex-dubai',
+    name: 'GITEX GLOBAL',
+    location: 'Dubai, UAE',
+    region: 'Middle East',
+    date: 'October 2025',
+    category: 'Enterprise Tech & AI',
+    attendees: '180,000+',
+    exhibitors: '6,000+',
+    verifiedRecords: '84,900+',
+    badge: 'Middle East Giant',
+    desc: 'Middle East, African, and South Asian tech decision-makers, government digitizers, and AI vendors.'
+  },
+  {
+    id: 'hannover-messe',
+    name: 'Hannover Messe',
+    location: 'Hannover, Germany',
+    region: 'Europe',
+    date: 'April 2025',
+    category: 'Industrial Engineering & 4.0',
+    attendees: '130,000+',
+    exhibitors: '4,000+',
+    verifiedRecords: '61,300+',
+    badge: 'Manufacturing Hub',
+    desc: 'Industry 4.0 pioneers, mechanical engineers, automation integrators, and robotics leaders.'
+  },
+  {
+    id: 'arab-health',
+    name: 'Arab Health Expo',
+    location: 'Dubai, UAE',
+    region: 'Middle East',
+    date: 'January 2025',
+    category: 'Medical & Pharma',
+    attendees: '110,000+',
+    exhibitors: '3,450+',
+    verifiedRecords: '47,800+',
+    badge: 'Healthcare Flagship',
+    desc: 'Hospital directors, medical device distributors, pharmaceutical executives, and clinic chains.'
+  },
+  {
+    id: 'nrf-retail',
+    name: "NRF Retail's Big Show",
+    location: 'New York, NY, USA',
+    region: 'North America',
+    date: 'January 2025',
+    category: 'Retail & E-Commerce',
+    attendees: '40,000+',
+    exhibitors: '1,000+',
+    verifiedRecords: '28,500+',
+    badge: 'Retail Marquee',
+    desc: 'Global retail CEOs, e-commerce VPs, supply chain merchants, and POS technology decision-makers.'
+  },
+  {
+    id: 'money-2020',
+    name: 'Money20/20 Europe',
+    location: 'Amsterdam, Netherlands',
+    region: 'Europe',
+    date: 'June 2025',
+    category: 'Banking & FinTech',
+    attendees: '8,500+',
+    exhibitors: '350+',
+    verifiedRecords: '7,900+',
+    badge: 'Fintech Summit',
+    desc: 'High-density roster of banking C-suite, crypto leaders, payment networks, and private equity partners.'
+  },
+  {
+    id: 'imts-chicago',
+    name: 'IMTS (Manufacturing Technology Show)',
+    location: 'Chicago, IL, USA',
+    region: 'North America',
+    date: 'September 2024',
+    category: 'Industrial & Mechanical',
+    attendees: '89,000+',
+    exhibitors: '1,700+',
+    verifiedRecords: '44,200+',
+    badge: 'Engineering Expo',
+    desc: 'Precision tooling directors, plant operations managers, aerospace machinists, and factory owners.'
+  },
+  {
+    id: 'bio-europe',
+    name: 'BIO-Europe',
+    location: 'Munich & Milan, Europe',
+    region: 'Europe',
+    date: 'November 2024',
+    category: 'Drugs & Biotechnology',
+    attendees: '5,500+',
+    exhibitors: '400+',
+    verifiedRecords: '5,200+',
+    badge: 'Biotech Partnering',
+    desc: 'Biopharma licensing executives, drug formulation chiefs, CRO directors, and venture investors.'
+  },
+  {
+    id: 'sin-fintech',
+    name: 'Singapore FinTech Festival',
+    location: 'Singapore',
+    region: 'APAC',
+    date: 'November 2024',
+    category: 'Banking & Finance',
+    attendees: '66,000+',
+    exhibitors: '700+',
+    verifiedRecords: '31,800+',
+    badge: 'APAC Financial Hub',
+    desc: 'Asian central bankers, wealthtech founders, payment rail directors, and venture capitalists.'
+  },
+  {
+    id: 'medtec-japan',
+    name: 'Medtec Japan',
+    location: 'Tokyo, Japan',
+    region: 'APAC',
+    date: 'April 2025',
+    category: 'Medical & Pharma',
+    attendees: '18,000+',
+    exhibitors: '450+',
+    verifiedRecords: '12,400+',
+    badge: 'Precision MedTech',
+    desc: 'Japanese medical device manufacturers, precision optics engineers, and hospital suppliers.'
+  },
+  {
+    id: 'solar-storage',
+    name: 'Solar & Storage Live',
+    location: 'Birmingham & London, UK',
+    region: 'Europe',
+    date: 'September 2025',
+    category: 'Renewable Energy',
+    attendees: '20,000+',
+    exhibitors: '500+',
+    verifiedRecords: '14,600+',
+    badge: 'Clean Energy',
+    desc: 'Solar farm developers, battery storage engineers, EPC contractors, and clean energy financiers.'
+  }
 ]
 
 export const TESTIMONIALS = [
@@ -273,7 +970,7 @@ export const TESTIMONIALS = [
   {
     name: 'Priya Sharma',
     role: 'Marketing Director, GlobalMed Ltd.',
-    quote: 'We needed niche healthcare decision-makers across 12 countries. OptimaDB built a custom dataset in 5 days. The quality was exceptional and the support team was incredibly responsive.',
+    quote: 'We needed niche healthcare and trade show attendee decision-makers across 12 countries. OptimaDB built a custom dataset in 4 days. The quality was exceptional and the support team was incredibly responsive.',
     rating: 5,
   },
 ]
@@ -281,31 +978,31 @@ export const TESTIMONIALS = [
 export const RESOURCES = [
   {
     id: 'b2b-data-guide',
-    title: 'The Complete Guide to B2B Data Quality in 2024',
+    title: 'The Complete Guide to B2B Data Quality in 2026',
     category: 'Guide',
-    excerpt: 'Everything you need to know about maintaining accurate, deliverable B2B data — from validation best practices to CRM hygiene.',
-    date: 'October 2024',
+    excerpt: 'Everything you need to know about maintaining accurate, deliverable B2B data — from validation best practices to CRM hygiene across 38+ commercial industries.',
+    date: 'October 2026',
+  },
+  {
+    id: 'trade-show-outreach',
+    title: 'Maximizing Trade Show ROI: Pre-Show & Post-Show Contact Strategies',
+    category: 'Playbook',
+    excerpt: 'How leading B2B revenue teams use verified exhibitor and attendee lists to book 40+ meetings before stepping foot on the expo floor.',
+    date: 'October 2026',
   },
   {
     id: 'email-deliverability',
     title: '10 Factors Killing Your Email Deliverability (and How to Fix Them)',
     category: 'Article',
     excerpt: 'From spam traps to role-based addresses — learn the hidden threats in your email list and how to eliminate them before your next send.',
-    date: 'September 2024',
+    date: 'September 2026',
   },
   {
     id: 'gdpr-compliance',
     title: 'GDPR & CCPA Compliance for B2B Marketers: A Practical Checklist',
     category: 'Checklist',
-    excerpt: 'Stay compliant without sacrificing reach. Our step-by-step checklist covers consent, data processing, and opt-out management.',
-    date: 'August 2024',
-  },
-  {
-    id: 'data-enrichment-roi',
-    title: 'How Data Enrichment Drives 3x Pipeline Growth',
-    category: 'Case Study',
-    excerpt: 'A deep dive into how three B2B companies used data enrichment to dramatically improve conversion rates and shorten sales cycles.',
-    date: 'July 2024',
+    excerpt: 'Stay compliant without sacrificing reach. Our step-by-step checklist covers consent, data processing, and opt-out management across North America and Europe.',
+    date: 'August 2026',
   },
 ]
 
@@ -316,8 +1013,9 @@ export const NAV_LINKS = [
     dropdown: SERVICES.map(s => ({ label: s.title, path: `/services/${s.id}` })),
   },
   { label: 'Industries', path: '/industries' },
-  { label: 'Pricing',    path: '/pricing' },
-  { label: 'Resources',  path: '/resources' },
-  { label: 'About',      path: '/about' },
-  { label: 'Contact',    path: '/contact' },
+  { label: 'Events Intelligence', path: '/services/event-audience-intelligence' },
+  { label: 'Pricing', path: '/pricing' },
+  { label: 'Resources', path: '/resources' },
+  { label: 'About', path: '/about' },
+  { label: 'Contact', path: '/contact' },
 ]

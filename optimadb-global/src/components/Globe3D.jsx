@@ -1,33 +1,36 @@
 import { useEffect, useRef, useState, useMemo } from 'react'
-import { Globe, Activity, ShieldCheck, Zap, Sparkles, Navigation, Layers, RotateCw } from 'lucide-react'
+import { Globe, Activity, ShieldCheck, Zap, Sparkles, Navigation, Layers, RotateCw, ExternalLink, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { COUNTRIES } from '../data/siteData'
+import { Link } from 'react-router-dom'
 import './Globe3D.css'
 
-// 3D Global Hubs definition with spherical coordinates (lat, lon in degrees)
-const HUBS = [
-  { id: 'nyc', name: 'New York', region: 'Americas', lat: 40.71, lon: -74.00, contacts: '18.4M', sla: '99.5%', ping: '12ms', color: '#00C2FF' },
-  { id: 'sfo', name: 'San Francisco', region: 'Americas', lat: 37.77, lon: -122.41, contacts: '14.2M', sla: '99.4%', ping: '16ms', color: '#38BDF8' },
-  { id: 'sao', name: 'São Paulo', region: 'Americas', lat: -23.55, lon: -46.63, contacts: '6.8M', sla: '99.1%', ping: '42ms', color: '#00E5FF' },
-  { id: 'lon', name: 'London', region: 'EMEA', lat: 51.50, lon: -0.12, contacts: '15.9M', sla: '99.6%', ping: '18ms', color: '#38BDF8' },
-  { id: 'fra', name: 'Frankfurt', region: 'EMEA', lat: 50.11, lon: 8.68, contacts: '11.3M', sla: '99.4%', ping: '20ms', color: '#00C2FF' },
-  { id: 'dxb', name: 'Dubai', region: 'EMEA', lat: 25.20, lon: 55.27, contacts: '7.5M', sla: '99.2%', ping: '28ms', color: '#F59E0B' },
-  { id: 'sin', name: 'Singapore', region: 'APAC', lat: 1.35, lon: 103.81, contacts: '9.2M', sla: '99.5%', ping: '24ms', color: '#10B981' },
-  { id: 'tok', name: 'Tokyo', region: 'APAC', lat: 35.67, lon: 139.65, contacts: '12.8M', sla: '99.4%', ping: '30ms', color: '#00C2FF' },
-  { id: 'syd', name: 'Sydney', region: 'APAC', lat: -33.86, lon: 151.20, contacts: '5.6M', sla: '99.2%', ping: '38ms', color: '#38BDF8' },
-  { id: 'bom', name: 'Mumbai', region: 'APAC', lat: 19.07, lon: 72.87, contacts: '8.4M', sla: '99.0%', ping: '26ms', color: '#F59E0B' }
-]
-
-// Network connection arcs between hubs
-const ARCS = [
-  ['nyc', 'lon'],
-  ['lon', 'fra'],
-  ['fra', 'dxb'],
-  ['dxb', 'sin'],
-  ['sin', 'tok'],
-  ['tok', 'syd'],
-  ['sfo', 'tok'],
-  ['nyc', 'sao'],
-  ['lon', 'sin'],
-  ['sfo', 'nyc']
+// Network connection arcs between primary hubs
+const PRIMARY_ARCS = [
+  ['US', 'GB'],
+  ['US', 'CA'],
+  ['GB', 'DE'],
+  ['DE', 'FR'],
+  ['FR', 'IT'],
+  ['DE', 'NL'],
+  ['NL', 'LU'],
+  ['GB', 'IE'],
+  ['DE', 'DK'],
+  ['DK', 'FI'],
+  ['FR', 'ES'],
+  ['ES', 'PT'],
+  ['DE', 'TR'],
+  ['TR', 'AE'],
+  ['AE', 'IN'],
+  ['IN', 'HK'],
+  ['IN', 'CN'],
+  ['CN', 'HK'],
+  ['HK', 'TW'],
+  ['TW', 'JP'],
+  ['US', 'JP'],
+  ['US', 'AU'],
+  ['AU', 'JP'],
+  ['US', 'AE'],
+  ['TR', 'RU']
 ]
 
 // Convert lat/lon to 3D Cartesian coordinates on unit sphere
@@ -41,9 +44,8 @@ function latLonToVector(lat, lon, radius = 1) {
   }
 }
 
-// Spherical Linear Interpolation (Slerp) for smooth 3D arcs
+// Slerp for smooth great-circle 3D arcs
 function slerp(p0, p1, t) {
-  // Normalize p0, p1
   const dot = p0.x * p1.x + p0.y * p1.y + p0.z * p1.z
   const clampedDot = Math.max(-1, Math.min(1, dot))
   const theta = Math.acos(clampedDot)
@@ -61,447 +63,518 @@ function slerp(p0, p1, t) {
 export default function Globe3D() {
   const canvasRef = useRef(null)
   const [selectedRegion, setSelectedRegion] = useState('All')
-  const [activeHub, setActiveHub] = useState(null)
+  const [activeCountry, setActiveCountry] = useState(COUNTRIES[0]) // Default to United States
   const [isRotating, setIsRotating] = useState(true)
   const [telemetryCount, setTelemetryCount] = useState(1482090)
 
   // Simulation parameters held in refs for 60fps canvas loop
-  const rotYRef = useRef(0.8)
-  const rotXRef = useRef(0.28) // Earth axial tilt ~23.5 deg
+  const rotYRef = useRef(1.4) // Initial angle showing North America & Europe
+  const rotXRef = useRef(0.26) // Earth axial tilt
+  const targetRotYRef = useRef(null)
+  const targetRotXRef = useRef(null)
   const isDraggingRef = useRef(false)
   const lastMouseRef = useRef({ x: 0, y: 0 })
   const animFrameRef = useRef(null)
-  const activeHubRef = useRef(null)
+  const activeCountryRef = useRef(activeCountry)
+  const isRotatingRef = useRef(isRotating)
+
   const packetsRef = useRef(
-    ARCS.map(() => ({ t: Math.random(), speed: 0.004 + Math.random() * 0.003 }))
+    PRIMARY_ARCS.map(() => ({ t: Math.random(), speed: 0.0035 + Math.random() * 0.0035 }))
   )
 
-  // Keep activeHubRef updated
   useEffect(() => {
-    activeHubRef.current = activeHub
-  }, [activeHub])
+    activeCountryRef.current = activeCountry
+  }, [activeCountry])
+
+  useEffect(() => {
+    isRotatingRef.current = isRotating
+  }, [isRotating])
 
   // Periodic telemetry counter pulse
   useEffect(() => {
     const timer = setInterval(() => {
       setTelemetryCount(prev => prev + Math.floor(Math.random() * 8) + 1)
-    }, 2500)
+    }, 2400)
     return () => clearInterval(timer)
   }, [])
 
-  // Generate continent point cloud on sphere
+  // High-density continental surface points
   const surfacePoints = useMemo(() => {
     const pts = []
-    // Defined continent clusters (center lat, center lon, spread, count)
     const clusters = [
-      { lat: 42, lon: -95, spread: 22, count: 90 }, // N. America
-      { lat: -12, lon: -55, spread: 18, count: 65 }, // S. America
-      { lat: 50, lon: 15, spread: 16, count: 85 },  // Europe
-      { lat: 30, lon: 105, spread: 24, count: 120 }, // Asia
-      { lat: 22, lon: 78, spread: 14, count: 50 },  // India
-      { lat: -25, lon: 135, spread: 15, count: 45 }, // Australia
-      { lat: 8, lon: 22, spread: 20, count: 60 }    // Africa
+      { lat: 42, lon: -95, spread: 20, count: 110 },  // N. America
+      { lat: 55, lon: -110, spread: 18, count: 70 },  // Canada
+      { lat: -12, lon: -55, spread: 18, count: 65 },  // S. America
+      { lat: 51, lon: 10, spread: 16, count: 120 },   // Europe
+      { lat: 25, lon: 45, spread: 15, count: 65 },    // Middle East
+      { lat: 24, lon: 78, spread: 16, count: 95 },    // India
+      { lat: 35, lon: 105, spread: 22, count: 130 },  // China
+      { lat: 36, lon: 138, spread: 8, count: 55 },    // Japan
+      { lat: -25, lon: 135, spread: 18, count: 70 },  // Australia
+      { lat: 62, lon: 26, spread: 12, count: 50 },    // Nordics
     ]
 
     clusters.forEach(c => {
       for (let i = 0; i < c.count; i++) {
         const u = Math.random()
         const v = Math.random()
-        const lat = c.lat + (u - 0.5) * c.spread * 2
-        const lon = c.lon + (v - 0.5) * c.spread * 2.5
-        pts.push(latLonToVector(lat, lon, 1))
+        const r = c.spread * Math.sqrt(u)
+        const theta = v * 2 * Math.PI
+        const lat = Math.max(-80, Math.min(80, c.lat + r * Math.sin(theta)))
+        const lon = c.lon + (r * Math.cos(theta)) / Math.cos((c.lat * Math.PI) / 180)
+        pts.push(latLonToVector(lat, lon, 1.0))
       }
     })
     return pts
   }, [])
 
+  // Filtered countries
+  const filteredCountries = useMemo(() => {
+    if (selectedRegion === 'All') return COUNTRIES
+    return COUNTRIES.filter(c => c.region === selectedRegion)
+  }, [selectedRegion])
+
+  // Center globe on a country
+  const focusOnCountry = (country) => {
+    setActiveCountry(country)
+    setIsRotating(false)
+
+    // Calculate rotation angles to bring country to front (z > 0, x ≈ 0, y ≈ 0)
+    const targetY = -((country.lon + 90) * Math.PI) / 180
+    const targetX = ((country.lat - 10) * Math.PI) / 180 * 0.55
+    targetRotYRef.current = targetY
+    targetRotXRef.current = Math.max(-0.6, Math.min(0.6, targetX))
+  }
+
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    let width = (canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1))
-    let height = (canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1))
+
+    const dpr = window.devicePixelRatio || 1
+    const initW = canvas.offsetWidth || canvas.parentElement?.clientWidth || 500
+    const initH = canvas.offsetHeight || canvas.parentElement?.clientHeight || 330
+    canvas.width = Math.round(initW * dpr)
+    canvas.height = Math.round(initH * dpr)
 
     const handleResize = () => {
       if (!canvas) return
-      width = canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1)
-      height = canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1)
+      const w = canvas.offsetWidth || canvas.parentElement?.clientWidth || 500
+      const h = canvas.offsetHeight || canvas.parentElement?.clientHeight || 330
+      canvas.width = Math.round(w * (window.devicePixelRatio || 1))
+      canvas.height = Math.round(h * (window.devicePixelRatio || 1))
     }
     window.addEventListener('resize', handleResize)
 
-    // 3D Projection Helper
-    const project = (v, radius, cx, cy) => {
-      // Rotate around X axis
-      const cosX = Math.cos(rotXRef.current)
-      const sinX = Math.sin(rotXRef.current)
-      const y1 = v.y * cosX - v.z * sinX
-      const z1 = v.y * sinX + v.z * cosX
+    // Interactive Drag Listeners
+    const onMouseDown = (e) => {
+      isDraggingRef.current = true
+      targetRotYRef.current = null
+      targetRotXRef.current = null
+      lastMouseRef.current = { x: e.clientX, y: e.clientY }
+    }
 
-      // Rotate around Y axis
-      const cosY = Math.cos(rotYRef.current)
-      const sinY = Math.sin(rotYRef.current)
-      const x2 = v.x * cosY + z1 * sinY
-      const z2 = -v.x * sinY + z1 * cosY
+    const onMouseMove = (e) => {
+      if (!isDraggingRef.current) return
+      const dx = e.clientX - lastMouseRef.current.x
+      const dy = e.clientY - lastMouseRef.current.y
+      rotYRef.current += dx * 0.0065
+      rotXRef.current = Math.max(-0.85, Math.min(0.85, rotXRef.current + dy * 0.0055))
+      lastMouseRef.current = { x: e.clientX, y: e.clientY }
+    }
 
-      // Perspective scale (fov)
-      const fov = 500
-      const scale = fov / (fov + z2 * radius)
-      return {
-        x: cx + x2 * radius * scale,
-        y: cy + y1 * radius * scale,
-        z: z2,
-        scale
+    const onMouseUp = () => {
+      isDraggingRef.current = false
+    }
+
+    // Touch support
+    const onTouchStart = (e) => {
+      if (e.touches.length === 1) {
+        isDraggingRef.current = true
+        targetRotYRef.current = null
+        targetRotXRef.current = null
+        lastMouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
       }
     }
 
-    // Animation Loop
-    let lastTime = performance.now()
-    const render = (time) => {
-      const dt = Math.min((time - lastTime) / 1000, 0.1)
-      lastTime = time
+    const onTouchMove = (e) => {
+      if (!isDraggingRef.current || e.touches.length !== 1) return
+      const dx = e.touches[0].clientX - lastMouseRef.current.x
+      const dy = e.touches[0].clientY - lastMouseRef.current.y
+      rotYRef.current += dx * 0.0065
+      rotXRef.current = Math.max(-0.85, Math.min(0.85, rotXRef.current + dy * 0.0055))
+      lastMouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+    }
 
-      // Auto rotation
-      if (isRotating && !isDraggingRef.current) {
-        rotYRef.current += 0.28 * dt
+    const onTouchEnd = () => {
+      isDraggingRef.current = false
+    }
+
+    canvas.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+    canvas.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: true })
+    window.addEventListener('touchend', onTouchEnd)
+
+    // Precalculate country 3D vectors
+    const countryVectors = {}
+    COUNTRIES.forEach(c => {
+      countryVectors[c.code] = latLonToVector(c.lat, c.lon, 1.0)
+    })
+
+    // Animation Render Loop
+    let ringAngle = 0
+    let pulseAngle = 0
+
+    const render = () => {
+      // Dynamic canvas dimension resolution with resilient fallbacks
+      const currentDpr = window.devicePixelRatio || 1
+      const rect = canvas.getBoundingClientRect()
+      const cw = rect.width || canvas.offsetWidth || canvas.parentElement?.clientWidth || 500
+      const ch = rect.height || canvas.offsetHeight || canvas.parentElement?.clientHeight || 330
+      const targetW = Math.max(300, Math.round(cw * currentDpr))
+      const targetH = Math.max(260, Math.round(ch * currentDpr))
+
+      if (canvas.width !== targetW || canvas.height !== targetH) {
+        canvas.width = targetW
+        canvas.height = targetH
       }
 
-      ctx.clearRect(0, 0, width, height)
-      const dpr = window.devicePixelRatio || 1
-      const cx = width / 2
-      const cy = height / 2
-      const sphereRadius = Math.min(width, height) * 0.38
+      const w = canvas.width
+      const h = canvas.height
 
-      // 1. Draw outer atmospheric glow
-      const glowGrad = ctx.createRadialGradient(cx, cy, sphereRadius * 0.7, cx, cy, sphereRadius * 1.35)
-      glowGrad.addColorStop(0, 'rgba(0, 194, 255, 0.08)')
-      glowGrad.addColorStop(0.5, 'rgba(26, 60, 143, 0.05)')
-      glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
-      ctx.fillStyle = glowGrad
+      // Handle camera smooth glide towards target country
+      if (targetRotYRef.current !== null && targetRotXRef.current !== null) {
+        let diffY = targetRotYRef.current - rotYRef.current
+        diffY = Math.atan2(Math.sin(diffY), Math.cos(diffY))
+        const diffX = targetRotXRef.current - rotXRef.current
+
+        rotYRef.current += diffY * 0.08
+        rotXRef.current += diffX * 0.08
+
+        if (Math.abs(diffY) < 0.002 && Math.abs(diffX) < 0.002) {
+          targetRotYRef.current = null
+          targetRotXRef.current = null
+        }
+      } else if (isRotatingRef.current && !isDraggingRef.current) {
+        rotYRef.current += 0.0028 // Smooth constant auto-rotation
+      }
+
+      ringAngle += 0.008
+      pulseAngle += 0.045
+
+      ctx.clearRect(0, 0, w, h)
+
+      const cx = w / 2
+      const cy = h / 2
+      const R = Math.min(w, h) * 0.38
+
+      const cosY = Math.cos(rotYRef.current)
+      const sinY = Math.sin(rotYRef.current)
+      const cosX = Math.cos(rotXRef.current)
+      const sinX = Math.sin(rotXRef.current)
+
+      // Project 3D vector to 2D screen with orthographic camera
+      const project = (v, rMultiplier = 1) => {
+        const radius = R * rMultiplier
+        const x1 = v.x * cosY + v.z * sinY
+        const z1 = -v.x * sinY + v.z * cosY
+        const y2 = v.y * cosX - z1 * sinX
+        const z2 = v.y * sinX + z1 * cosX
+
+        return {
+          x: cx + x1 * radius,
+          y: cy - y2 * radius,
+          z: z2 // z > 0: facing user, z < 0: behind globe
+        }
+      }
+
+      // ── 1. Deep Space Atmosphere Glow Behind Globe ──
+      const bgGrad = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R * 1.55)
+      bgGrad.addColorStop(0, 'rgba(0, 194, 255, 0.16)')
+      bgGrad.addColorStop(0.5, 'rgba(15, 38, 96, 0.12)')
+      bgGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
+      ctx.fillStyle = bgGrad
+      ctx.fillRect(0, 0, w, h)
+
+      // ── 2. Globe Sphere Core & Back Shadow ──
       ctx.beginPath()
-      ctx.arc(cx, cy, sphereRadius * 1.35, 0, Math.PI * 2)
+      ctx.arc(cx, cy, R, 0, Math.PI * 2)
+      ctx.fillStyle = '#061327'
       ctx.fill()
 
-      // 2. Draw Globe Sphere Backdrop with deep radial shading
-      const sphereGrad = ctx.createRadialGradient(cx - sphereRadius * 0.3, cy - sphereRadius * 0.3, sphereRadius * 0.1, cx, cy, sphereRadius)
-      sphereGrad.addColorStop(0, 'rgba(15, 30, 65, 0.85)')
-      sphereGrad.addColorStop(0.7, 'rgba(10, 20, 45, 0.95)')
-      sphereGrad.addColorStop(1, 'rgba(2, 12, 27, 0.98)')
+      // Inner sphere gradient
+      const sphereGrad = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.05, cx, cy, R)
+      sphereGrad.addColorStop(0, '#0F2852')
+      sphereGrad.addColorStop(0.7, '#071731')
+      sphereGrad.addColorStop(1, '#030B17')
       ctx.fillStyle = sphereGrad
-      ctx.beginPath()
-      ctx.arc(cx, cy, sphereRadius, 0, Math.PI * 2)
       ctx.fill()
+      ctx.lineWidth = 1.2
       ctx.strokeStyle = 'rgba(0, 194, 255, 0.25)'
-      ctx.lineWidth = 1.5 * dpr
       ctx.stroke()
 
-      // 3. Draw Latitude Rings
-      const latitudes = [-50, -25, 0, 25, 50]
-      latitudes.forEach(lat => {
-        ctx.beginPath()
-        let started = false
-        for (let lon = -180; lon <= 180; lon += 5) {
-          const pt = latLonToVector(lat, lon, 1)
-          const p = project(pt, sphereRadius, cx, cy)
-          if (p.z > -0.15) { // Only front-facing portion
-            if (!started) {
-              ctx.moveTo(p.x, p.y)
-              started = true
-            } else {
-              ctx.lineTo(p.x, p.y)
-            }
-          } else {
-            started = false
-          }
-        }
-        ctx.strokeStyle = lat === 0 ? 'rgba(0, 194, 255, 0.24)' : 'rgba(255, 255, 255, 0.06)'
-        ctx.lineWidth = (lat === 0 ? 1.2 : 0.8) * dpr
-        ctx.stroke()
-      })
+      // ── 3. Rotating Holographic Outer Celestial Rings ──
+      ctx.save()
+      ctx.translate(cx, cy)
+      ctx.rotate(ringAngle)
 
-      // 4. Draw Longitude Meridian Rings
-      const longitudes = [-120, -60, 0, 60, 120, 180]
-      longitudes.forEach(lon => {
-        ctx.beginPath()
-        let started = false
-        for (let lat = -85; lat <= 85; lat += 5) {
-          const pt = latLonToVector(lat, lon, 1)
-          const p = project(pt, sphereRadius, cx, cy)
-          if (p.z > -0.1) {
-            if (!started) {
-              ctx.moveTo(p.x, p.y)
-              started = true
-            } else {
-              ctx.lineTo(p.x, p.y)
-            }
-          } else {
-            started = false
-          }
-        }
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'
-        ctx.lineWidth = 0.8 * dpr
-        ctx.stroke()
-      })
+      // Outer ring with dashed hash marks
+      ctx.beginPath()
+      ctx.arc(0, 0, R * 1.24, 0, Math.PI * 2)
+      ctx.strokeStyle = 'rgba(0, 194, 255, 0.18)'
+      ctx.lineWidth = 1
+      ctx.setLineDash([4, 12])
+      ctx.stroke()
+      ctx.setLineDash([])
 
-      // 5. Draw Surface Dots (Landmass Particle Matrix)
-      surfacePoints.forEach(pt => {
-        const p = project(pt, sphereRadius, cx, cy)
-        if (p.z > -0.05) {
-          const alpha = Math.max(0.08, (p.z + 0.1) * 0.7)
-          ctx.fillStyle = `rgba(100, 217, 255, ${alpha.toFixed(2)})`
+      // Rotating coordinate ticks
+      for (let deg = 0; deg < 360; deg += 30) {
+        const rad = (deg * Math.PI) / 180
+        const r1 = R * 1.22
+        const r2 = R * (deg % 90 === 0 ? 1.28 : 1.25)
+        ctx.beginPath()
+        ctx.moveTo(Math.cos(rad) * r1, Math.sin(rad) * r1)
+        ctx.lineTo(Math.cos(rad) * r2, Math.sin(rad) * r2)
+        ctx.strokeStyle = deg % 90 === 0 ? 'rgba(0, 194, 255, 0.65)' : 'rgba(0, 194, 255, 0.25)'
+        ctx.lineWidth = deg % 90 === 0 ? 1.5 : 1
+        ctx.stroke()
+      }
+      ctx.restore()
+
+      // ── 4. Surface Continental Point Cloud ──
+      surfacePoints.forEach(p => {
+        const proj = project(p, 1.0)
+        if (proj.z > -0.05) {
+          const alpha = Math.max(0.08, Math.min(0.85, (proj.z + 0.1) * 0.85))
           ctx.beginPath()
-          ctx.arc(p.x, p.y, (1.2 + p.z * 0.6) * dpr, 0, Math.PI * 2)
+          ctx.arc(proj.x, proj.y, 1.3, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(0, 194, 255, ${alpha})`
           ctx.fill()
         }
       })
 
-      // 6. Draw 3D Telemetry Arcs between Hubs
-      ARCS.forEach(([idA, idB], arcIdx) => {
-        const hubA = HUBS.find(h => h.id === idA)
-        const hubB = HUBS.find(h => h.id === idB)
-        if (!hubA || !hubB) return
+      // ── 5. Great Circle Network Arcs & Data Photons ──
+      PRIMARY_ARCS.forEach(([code1, code2], arcIdx) => {
+        const v1 = countryVectors[code1]
+        const v2 = countryVectors[code2]
+        if (!v1 || !v2) return
 
-        const vA = latLonToVector(hubA.lat, hubA.lon, 1)
-        const vB = latLonToVector(hubB.lat, hubB.lon, 1)
+        const samples = 24
+        const pts = []
+        let allBehind = true
 
-        // Draw curved arc segment points
-        const segments = 32
-        const arcPts = []
-        let visibleCount = 0
-
-        for (let i = 0; i <= segments; i++) {
-          const t = i / segments
-          // Interpolate with arc elevation
-          const s = slerp(vA, vB, t)
-          const altitude = 1.0 + Math.sin(t * Math.PI) * 0.16 // Arc height above globe
-          const elevated = { x: s.x * altitude, y: s.y * altitude, z: s.z * altitude }
-          const p = project(elevated, sphereRadius, cx, cy)
-          arcPts.push(p)
-          if (p.z > -0.1) visibleCount++
+        for (let s = 0; s <= samples; s++) {
+          const t = s / samples
+          const sphereVec = slerp(v1, v2, t)
+          // Lift arc slightly above globe surface at center (parabolic arc)
+          const lift = 1.0 + Math.sin(t * Math.PI) * 0.16
+          const p = project(sphereVec, lift)
+          pts.push(p)
+          if (p.z > 0) allBehind = false
         }
 
-        if (visibleCount > 10) {
+        if (!allBehind) {
+          // Draw arc line
           ctx.beginPath()
-          ctx.moveTo(arcPts[0].x, arcPts[0].y)
-          for (let i = 1; i <= segments; i++) {
-            ctx.lineTo(arcPts[i].x, arcPts[i].y)
-          }
-          ctx.strokeStyle = 'rgba(0, 194, 255, 0.28)'
-          ctx.lineWidth = 1.4 * dpr
+          pts.forEach((p, i) => {
+            if (i === 0) ctx.moveTo(p.x, p.y)
+            else ctx.lineTo(p.x, p.y)
+          })
+          const activeArc = (activeCountryRef.current?.code === code1 || activeCountryRef.current?.code === code2)
+          ctx.strokeStyle = activeArc ? 'rgba(0, 194, 255, 0.75)' : 'rgba(0, 194, 255, 0.22)'
+          ctx.lineWidth = activeArc ? 1.8 : 1.0
           ctx.stroke()
 
-          // Draw active pulse packet traveling along the arc
-          const pkt = packetsRef.current[arcIdx]
-          pkt.t = (pkt.t + pkt.speed * dt * 60) % 1
-          const currPt = slerp(vA, vB, pkt.t)
-          const currAlt = 1.0 + Math.sin(pkt.t * Math.PI) * 0.16
-          const pCurr = project({ x: currPt.x * currAlt, y: currPt.y * currAlt, z: currPt.z * currAlt }, sphereRadius, cx, cy)
+          // Draw moving photon packet along arc
+          const packet = packetsRef.current[arcIdx]
+          if (packet) {
+            packet.t += packet.speed
+            if (packet.t > 1) packet.t = 0
 
-          if (pCurr.z > -0.05) {
-            // Glowing packet core
-            ctx.fillStyle = '#FFFFFF'
-            ctx.beginPath()
-            ctx.arc(pCurr.x, pCurr.y, 2.5 * dpr, 0, Math.PI * 2)
-            ctx.fill()
+            const spherePos = slerp(v1, v2, packet.t)
+            const lift = 1.0 + Math.sin(packet.t * Math.PI) * 0.16
+            const photonProj = project(spherePos, lift)
 
-            // Packet glow halo
-            ctx.fillStyle = 'rgba(0, 194, 255, 0.6)'
-            ctx.beginPath()
-            ctx.arc(pCurr.x, pCurr.y, 5.5 * dpr, 0, Math.PI * 2)
-            ctx.fill()
+            if (photonProj.z > -0.1) {
+              const pAlpha = Math.max(0.3, photonProj.z)
+              // Glow halo
+              ctx.beginPath()
+              ctx.arc(photonProj.x, photonProj.y, activeArc ? 4 : 2.5, 0, Math.PI * 2)
+              ctx.fillStyle = activeArc ? 'rgba(245, 158, 11, 0.95)' : `rgba(0, 229, 255, ${pAlpha})`
+              ctx.fill()
+            }
           }
         }
       })
 
-      // 7. Draw Global Hub Pins & Labels
-      HUBS.forEach(hub => {
-        // Filter by region if set
-        const matchesFilter = selectedRegion === 'All' || hub.region === selectedRegion
-        const isHovered = activeHubRef.current === hub.id
+      // ── 6. Render Country Hub Nodes & Labels ──
+      COUNTRIES.forEach(country => {
+        const v = countryVectors[country.code]
+        if (!v) return
 
-        const v = latLonToVector(hub.lat, hub.lon, 1)
-        const p = project(v, sphereRadius, cx, cy)
+        const proj = project(v, 1.0)
+        // Only render if on front-facing hemisphere
+        if (proj.z > 0) {
+          const isSelected = activeCountryRef.current?.code === country.code
+          const zScale = 0.5 + proj.z * 0.5
 
-        if (p.z > -0.15) {
-          const depthAlpha = Math.min(1, Math.max(0.25, (p.z + 0.2) * 1.5))
-          const nodeColor = hub.color || '#00C2FF'
-
-          // Outer pulsing ring
-          const pulse = (Math.sin(time * 0.004 + v.x * 5) + 1) * 0.5
-          ctx.strokeStyle = matchesFilter
-            ? `rgba(0, 194, 255, ${(depthAlpha * 0.5 * (1 + pulse * 0.4)).toFixed(2)})`
-            : `rgba(150, 160, 180, ${(depthAlpha * 0.2).toFixed(2)})`
-          ctx.lineWidth = (isHovered ? 2.5 : 1.5) * dpr
+          // Pulsing radar ring
+          const pulseR = isSelected ? 8 + Math.sin(pulseAngle) * 5 : 4 + Math.sin(pulseAngle + country.lat) * 2.5
           ctx.beginPath()
-          ctx.arc(p.x, p.y, (isHovered ? 10 : 6 + pulse * 3) * dpr, 0, Math.PI * 2)
+          ctx.arc(proj.x, proj.y, pulseR, 0, Math.PI * 2)
+          ctx.strokeStyle = isSelected ? 'rgba(245, 158, 11, 0.85)' : 'rgba(0, 194, 255, 0.45)'
+          ctx.lineWidth = 1.2
           ctx.stroke()
 
-          // Inner solid node dot
-          ctx.fillStyle = isHovered ? '#FFFFFF' : nodeColor
+          // Solid central node
           ctx.beginPath()
-          ctx.arc(p.x, p.y, (isHovered ? 5 : 3.5) * dpr, 0, Math.PI * 2)
+          ctx.arc(proj.x, proj.y, isSelected ? 4.5 : 2.8, 0, Math.PI * 2)
+          ctx.fillStyle = isSelected ? '#F59E0B' : '#00C2FF'
+          ctx.shadowColor = isSelected ? '#F59E0B' : '#00C2FF'
+          ctx.shadowBlur = isSelected ? 12 : 6
           ctx.fill()
+          ctx.shadowBlur = 0 // Reset
 
-          // Text label for front-facing hubs
-          if (p.z > 0.05 || isHovered) {
-            ctx.font = `${isHovered ? 'bold ' : ''}${Math.round(10.5 * dpr)}px 'Plus Jakarta Sans', sans-serif`
-            const labelText = hub.name
-            const textMetrics = ctx.measureText(labelText)
-            const padding = 4 * dpr
-            const textW = textMetrics.width
-            const textH = 12 * dpr
-            const labelX = p.x + 8 * dpr
-            const labelY = p.y - 4 * dpr
+          // Label text
+          if (isSelected || proj.z > 0.45) {
+            ctx.font = isSelected ? 'bold 11px Inter, sans-serif' : '600 9.5px Inter, sans-serif'
+            ctx.fillStyle = isSelected ? '#FFFFFF' : 'rgba(226, 232, 240, 0.85)'
+            ctx.fillText(country.name, proj.x + 8, proj.y + 3)
 
-            // Label pill backdrop
-            ctx.fillStyle = isHovered ? 'rgba(0, 194, 255, 0.95)' : 'rgba(10, 25, 47, 0.85)'
-            ctx.strokeStyle = isHovered ? '#FFFFFF' : 'rgba(0, 194, 255, 0.35)'
-            ctx.lineWidth = 1 * dpr
-            ctx.beginPath()
-            ctx.roundRect(labelX - padding, labelY - textH + padding, textW + padding * 2, textH + padding, 4 * dpr)
-            ctx.fill()
-            ctx.stroke()
-
-            // Label text
-            ctx.fillStyle = isHovered ? '#0A192F' : '#E2E8F0'
-            ctx.fillText(labelText, labelX, labelY)
+            if (isSelected) {
+              // Mini verified tag under active country
+              ctx.font = '500 8.5px Inter, sans-serif'
+              ctx.fillStyle = '#00C2FF'
+              ctx.fillText(`${country.contacts} Verified`, proj.x + 8, proj.y + 14)
+            }
           }
         }
       })
+
+      // ── 7. Atmospheric Rim Glint on Top-Left ──
+      const rimGrad = ctx.createLinearGradient(cx - R, cy - R, cx + R * 0.5, cy + R * 0.5)
+      rimGrad.addColorStop(0, 'rgba(0, 194, 255, 0.35)')
+      rimGrad.addColorStop(0.35, 'rgba(0, 194, 255, 0.08)')
+      rimGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')
+      ctx.beginPath()
+      ctx.arc(cx, cy, R - 0.5, 0, Math.PI * 2)
+      ctx.strokeStyle = rimGrad
+      ctx.lineWidth = 3
+      ctx.stroke()
 
       animFrameRef.current = requestAnimationFrame(render)
     }
 
-    animFrameRef.current = requestAnimationFrame(render)
+    render()
 
     return () => {
       cancelAnimationFrame(animFrameRef.current)
       window.removeEventListener('resize', handleResize)
+      canvas.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+      canvas.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchend', onTouchEnd)
     }
-  }, [selectedRegion, isRotating, surfacePoints])
-
-  // Mouse & Touch Drag Handlers for 3D globe rotation
-  const handleMouseDown = (e) => {
-    isDraggingRef.current = true
-    lastMouseRef.current = { x: e.clientX, y: e.clientY }
-  }
-
-  const handleMouseMove = (e) => {
-    if (!isDraggingRef.current) {
-      // Hit testing for hover tooltip
-      const canvas = canvasRef.current
-      if (!canvas) return
-      const rect = canvas.getBoundingClientRect()
-      const mouseX = (e.clientX - rect.left) * (window.devicePixelRatio || 1)
-      const mouseY = (e.clientY - rect.top) * (window.devicePixelRatio || 1)
-      const cx = canvas.width / 2
-      const cy = canvas.height / 2
-      const radius = Math.min(canvas.width, canvas.height) * 0.38
-
-      let found = null
-      for (const hub of HUBS) {
-        const v = latLonToVector(hub.lat, hub.lon, 1)
-        // Project
-        const cosX = Math.cos(rotXRef.current)
-        const sinX = Math.sin(rotXRef.current)
-        const y1 = v.y * cosX - v.z * sinX
-        const z1 = v.y * sinX + v.z * cosX
-        const cosY = Math.cos(rotYRef.current)
-        const sinY = Math.sin(rotYRef.current)
-        const x2 = v.x * cosY + z1 * sinY
-        const z2 = -v.x * sinY + z1 * cosY
-
-        if (z2 > -0.15) {
-          const fov = 500
-          const scale = fov / (fov + z2 * radius)
-          const px = cx + x2 * radius * scale
-          const py = cy + y1 * radius * scale
-          const dist = Math.hypot(mouseX - px, mouseY - py)
-          if (dist < 18 * (window.devicePixelRatio || 1)) {
-            found = hub.id
-            break
-          }
-        }
-      }
-      setActiveHub(found)
-      return
-    }
-
-    const dx = e.clientX - lastMouseRef.current.x
-    const dy = e.clientY - lastMouseRef.current.y
-    rotYRef.current += dx * 0.008
-    rotXRef.current = Math.max(-0.8, Math.min(0.8, rotXRef.current + dy * 0.008))
-    lastMouseRef.current = { x: e.clientX, y: e.clientY }
-  }
-
-  const handleMouseUp = () => {
-    isDraggingRef.current = false
-  }
-
-  const activeHubData = HUBS.find(h => h.id === activeHub)
+  }, [surfacePoints])
 
   return (
-    <div className="globe3d-container">
-      {/* Top HUD Telemetry Banner */}
+    <div className="globe3d-container" aria-label="3D Global Telemetry Hub">
+      {/* Top HUD Telemetry Bar */}
       <div className="globe3d-hud-header">
         <div className="globe3d-hud-badge">
           <span className="globe3d-pulse-dot" />
-          <span>3D TELEMETRY MATRIX · LIVE</span>
+          <span>OptimaDB Global Telemetry</span>
         </div>
         <div className="globe3d-hud-stats">
           <span className="globe3d-hud-stat">
-            <Activity size={12} className="globe3d-stat-icon" /> 170+ Countries
+            <Activity size={13} className="globe3d-stat-icon" />
+            <span>22 Target Markets</span>
           </span>
           <span className="globe3d-hud-stat">
-            <Zap size={12} className="globe3d-stat-icon" /> 99.4% SLA
+            <ShieldCheck size={13} className="globe3d-stat-icon" />
+            <span>99.5% Deliverability</span>
           </span>
           <span className="globe3d-hud-stat">
-            <ShieldCheck size={12} className="globe3d-stat-icon" /> 7-Day Sync
+            <Zap size={13} className="globe3d-stat-icon" />
+            <span>{telemetryCount.toLocaleString()} Pings</span>
           </span>
         </div>
       </div>
 
-      {/* Main Interactive Canvas Area */}
-      <div
-        className="globe3d-canvas-wrap"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-      >
+      {/* Main 3D Canvas Area — Unobstructed 360° Globe */}
+      <div className="globe3d-canvas-wrap">
         <canvas ref={canvasRef} className="globe3d-canvas" />
 
-        {/* Floating Active Hub Inspection Card */}
-        {activeHubData && (
-          <div className="globe3d-inspect-card glass">
-            <div className="globe3d-inspect-title">
-              <span className="globe3d-inspect-dot" />
-              <strong>{activeHubData.name} Hub</strong>
-              <span className="globe3d-inspect-region">{activeHubData.region}</span>
-            </div>
-            <div className="globe3d-inspect-grid">
-              <div>
-                <span className="globe3d-inspect-label">Verified Pool</span>
-                <strong className="globe3d-inspect-val">{activeHubData.contacts}</strong>
-              </div>
-              <div>
-                <span className="globe3d-inspect-label">Accuracy SLA</span>
-                <strong className="globe3d-inspect-val text-accent">{activeHubData.sla}</strong>
-              </div>
-              <div>
-                <span className="globe3d-inspect-label">Direct Ping</span>
-                <strong className="globe3d-inspect-val">{activeHubData.ping}</strong>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Drag Hint Overlay */}
         <div className="globe3d-drag-hint">
-          <span>Click & Drag to rotate 3D sphere</span>
+          <Navigation size={11} style={{ display: 'inline', marginRight: 4 }} />
+          Click any country chip below or drag to inspect 3D globe
         </div>
       </div>
 
-      {/* Bottom Controls Bar */}
+      {/* Dedicated Country Telemetry Strip (Docked Below Globe — Never Overlaps) */}
+      {activeCountry && (
+        <div className="globe3d-telemetry-strip" aria-label="Selected Market Details">
+          <div className="globe3d-telemetry-header">
+            <div className="globe3d-telemetry-title">
+              <span className="globe3d-inspect-dot" />
+              <strong>{activeCountry.name}</strong>
+              <span className="globe3d-inspect-code">[{activeCountry.code}]</span>
+              <span className="globe3d-inspect-region">{activeCountry.region}</span>
+            </div>
+            <Link
+              to={`/contact?country=${encodeURIComponent(activeCountry.name)}`}
+              className="globe3d-telemetry-cta"
+            >
+              Request Free Sample <ArrowRight size={12} />
+            </Link>
+          </div>
+
+          <div className="globe3d-telemetry-metrics">
+            <div className="globe3d-telemetry-stat">
+              <span className="globe3d-telemetry-lbl">Verified Contacts</span>
+              <strong className="globe3d-telemetry-val text-accent">{activeCountry.contacts}</strong>
+            </div>
+            <div className="globe3d-telemetry-stat">
+              <span className="globe3d-telemetry-lbl">Accuracy SLA</span>
+              <strong className="globe3d-telemetry-val">{activeCountry.sla}</strong>
+            </div>
+            <div className="globe3d-telemetry-stat">
+              <span className="globe3d-telemetry-lbl">Query Ping</span>
+              <strong className="globe3d-telemetry-val" style={{ color: '#10B981' }}>{activeCountry.ping}</strong>
+            </div>
+            <div className="globe3d-telemetry-stat globe3d-telemetry-stat--sectors">
+              <span className="globe3d-telemetry-lbl">Commercial Sectors</span>
+              <span className="globe3d-telemetry-val-text">{activeCountry.keySectors}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quick Country Selector Ticker / Chips */}
+      <div className="globe3d-country-bar" aria-label="Target Countries List">
+        <span className="globe3d-country-bar__label">Quick Target Markets:</span>
+        <div className="globe3d-country-bar__chips">
+          {COUNTRIES.map(c => (
+            <button
+              key={c.code}
+              type="button"
+              className={`globe3d-chip ${activeCountry?.code === c.code ? 'active' : ''}`}
+              onClick={() => focusOnCountry(c)}
+              title={`Center globe on ${c.name} (${c.contacts} contacts)`}
+            >
+              <span className="globe3d-chip-code">{c.code}</span>
+              <span className="globe3d-chip-name">{c.name}</span>
+            </button>
+          ))}
+          <span className="globe3d-chip globe3d-chip--more">+ 148 More Global Markets</span>
+        </div>
+      </div>
+
+      {/* Region Filter & Controls */}
       <div className="globe3d-controls">
         <div className="globe3d-filter-pills">
           {['All', 'Americas', 'EMEA', 'APAC'].map(region => (
@@ -511,7 +584,7 @@ export default function Globe3D() {
               className={`globe3d-pill ${selectedRegion === region ? 'active' : ''}`}
               onClick={() => setSelectedRegion(region)}
             >
-              {region === 'All' ? 'Worldwide (170+)' : region}
+              {region === 'All' ? 'All 22 Primary Markets' : region}
             </button>
           ))}
         </div>
@@ -522,27 +595,9 @@ export default function Globe3D() {
           onClick={() => setIsRotating(!isRotating)}
           title={isRotating ? 'Pause auto-rotation' : 'Resume auto-rotation'}
         >
-          <RotateCw size={13} className={isRotating ? 'spin-anim' : ''} />
-          <span>{isRotating ? 'Auto-Spin' : 'Paused'}</span>
+          <RotateCw size={13} className={isRotating ? 'spin-icon' : ''} />
+          <span>{isRotating ? 'Auto-Rotate ON' : 'Paused'}</span>
         </button>
-      </div>
-
-      {/* Bottom Metrics Bar */}
-      <div className="globe3d-metrics-strip">
-        <div className="globe3d-metric">
-          <span className="globe3d-metric-num">{telemetryCount.toLocaleString()}</span>
-          <span className="globe3d-metric-lbl">Total Verified Records Polled</span>
-        </div>
-        <div className="globe3d-metric-divider" />
-        <div className="globe3d-metric">
-          <span className="globe3d-metric-num">Weekly</span>
-          <span className="globe3d-metric-lbl">Continuous Refresh Cycle</span>
-        </div>
-        <div className="globe3d-metric-divider" />
-        <div className="globe3d-metric">
-          <span className="globe3d-metric-num">&lt; 4 Hours</span>
-          <span className="globe3d-metric-lbl">Custom Sample Turnaround</span>
-        </div>
       </div>
     </div>
   )

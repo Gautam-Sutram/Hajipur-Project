@@ -1,0 +1,396 @@
+/* ============================================================
+   OPTIMADB GLOBAL — 3D Database Architecture & Query Engine Styles
+   ============================================================ */
+
+.optimadb-engine-section {
+  background: radial-gradient(130% 90% at 50% 0%, #08162E 0%, #040D1D 50%, #020710 100%);
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0 90px;
+}
+
+.optimadb-engine-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 400px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 194, 255, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.optimadb-engine-header {
+  max-width: 860px;
+  margin: 0 auto 50px auto;
+}
+
+.optimadb-engine-header .section-label {
+  color: #00C2FF !important;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.optimadb-engine-header .heading-lg {
+  color: #FFFFFF !important;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.18 !important;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+.optimadb-engine-header .gradient-text {
+  background: linear-gradient(90deg, #00C2FF 0%, #38BDF8 50%, #A5F3FC 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.optimadb-engine-sub {
+  color: #E2E8F0 !important;
+  font-size: var(--fs-md);
+  margin-top: 16px;
+  line-height: 1.7;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.95;
+}
+
+/* 2-Column Grid */
+.optimadb-engine-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+/* 3D Canvas Card */
+.optimadb-canvas-card {
+  background: rgba(10, 24, 48, 0.82);
+  border: 1px solid rgba(0, 194, 255, 0.28);
+  border-radius: var(--radius-2xl);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 194, 255, 0.1);
+  position: relative;
+}
+
+.optimadb-canvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 8px;
+}
+
+.optimadb-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.optimadb-status-dot {
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseDot 2s infinite;
+}
+
+.optimadb-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #CBD5E1;
+  font-family: var(--font-heading);
+}
+
+.optimadb-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  cursor: grab;
+  user-select: none;
+}
+
+.optimadb-canvas-wrap:active {
+  cursor: grabbing;
+}
+
+.optimadb-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.optimadb-canvas-hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(4, 13, 29, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  padding: 4px 14px;
+  font-size: 10px;
+  color: #94A3B8;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Mode Selector */
+.optimadb-mode-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.optimadb-mode-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-md);
+  padding: 10px 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.optimadb-mode-btn:hover {
+  background: rgba(0, 194, 255, 0.1);
+  border-color: rgba(0, 194, 255, 0.3);
+}
+
+.optimadb-mode-btn.active {
+  background: rgba(0, 194, 255, 0.16);
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 14px rgba(0, 194, 255, 0.2);
+}
+
+.optimadb-mode-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.optimadb-mode-metric {
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* Terminal Console Card */
+.optimadb-console-card {
+  background: rgba(6, 17, 36, 0.94);
+  border: 1px solid rgba(0, 194, 255, 0.22);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+}
+
+.optimadb-terminal-header {
+  background: rgba(4, 11, 24, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.optimadb-terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot--red { background: #EF4444; }
+.dot--yellow { background: #F59E0B; }
+.dot--green { background: #10B981; }
+
+.optimadb-terminal-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #94A3B8;
+  letter-spacing: 0.02em;
+}
+
+.optimadb-terminal-sla {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--color-accent);
+  background: rgba(0, 194, 255, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.optimadb-terminal-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.terminal-line {
+  font-family: 'SF Mono', Consolas, Menlo, Monaco, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  word-break: break-all;
+}
+
+.terminal-line--head {
+  color: #64748B;
+  font-size: 11px;
+}
+.terminal-prefix {
+  color: #10B981;
+  font-weight: 700;
+}
+
+.terminal-cmd {
+  color: #F8FAFC;
+  font-weight: 600;
+}
+
+.terminal-line--result {
+  color: #E2E8F0;
+  background: rgba(0, 194, 255, 0.08);
+  border-left: 3px solid var(--color-accent);
+  padding: 6px 10px;
+  border-radius: 0 4px 4px 0;
+  margin: 6px 0;
+}
+
+.terminal-badge {
+  background: var(--color-accent);
+  color: #0A192F;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-right: 6px;
+}
+
+.terminal-line--info {
+  color: #94A3B8;
+  font-size: 11px;
+}
+
+.terminal-tag {
+  color: #F59E0B;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.text-green {
+  color: #10B981;
+  font-weight: 700;
+}
+
+/* Architecture Features */
+.optimadb-arch-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.optimadb-arch-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.optimadb-arch-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(0, 194, 255, 0.12);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.optimadb-arch-feature strong {
+  display: block;
+  font-size: 13px;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.optimadb-arch-feature p {
+  font-size: 11.5px;
+  color: #94A3B8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Console Footer */
+.optimadb-console-footer {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.optimadb-console-sub {
+  display: block;
+  text-align: center;
+  font-size: 10.5px;
+  color: #94A3B8;
+  margin-top: 8px;
+}
+
+@media (max-width: 992px) {
+  .optimadb-engine-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .optimadb-mode-selector {
+    grid-template-columns: 1fr;
+  }
+}

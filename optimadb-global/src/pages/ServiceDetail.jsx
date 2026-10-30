@@ -1,10 +1,10 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { CheckCircle2, ArrowRight, Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3 } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3, Calendar } from 'lucide-react'
 import SEOHead from '../components/SEOHead'
 import { SERVICES } from '../data/siteData'
 import './InnerPage.css'
 
-const ICON_MAP = { Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3 }
+const ICON_MAP = { Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3, Calendar }
 
 export default function ServiceDetail() {
   const { slug } = useParams()

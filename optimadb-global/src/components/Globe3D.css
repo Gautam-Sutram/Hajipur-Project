@@ -3,11 +3,14 @@
    ============================================================ */
 
 .globe3d-container {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
   background: radial-gradient(130% 100% at 50% 0%, #0F203C 0%, #061224 50%, #020C1B 100%);
-  border: 1px solid rgba(0, 194, 255, 0.22);
+  border: 1px solid rgba(0, 194, 255, 0.25);
   border-radius: var(--radius-2xl);
   box-shadow: 0 24px 60px -12px rgba(2, 12, 27, 0.75), 0 0 35px rgba(0, 194, 255, 0.12);
-  padding: 24px;
+  padding: 16px 18px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -33,9 +36,9 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 12px;
-  padding-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   z-index: 2;
@@ -44,15 +47,15 @@
 .globe3d-hud-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11px;
+  gap: 7px;
+  font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-accent);
   background: rgba(0, 194, 255, 0.12);
   border: 1px solid rgba(0, 194, 255, 0.25);
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
 }
 
@@ -65,10 +68,15 @@
   animation: pulseDot 2s infinite;
 }
 
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
 .globe3d-hud-stats {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
@@ -76,7 +84,7 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
   color: #94A3B8;
 }
@@ -85,11 +93,11 @@
   color: var(--color-accent);
 }
 
-/* Canvas Area */
+/* Canvas Area — Fully Unobstructed */
 .globe3d-canvas-wrap {
   position: relative;
   width: 100%;
-  height: 380px;
+  height: 290px;
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -105,22 +113,20 @@
   display: block;
 }
 
-/* Floating Hub Inspection Card */
-.globe3d-inspect-card {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background: rgba(10, 25, 47, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(0, 194, 255, 0.35);
+/* Docked Country Telemetry Strip (Below Globe — Zero Overlap) */
+.globe3d-telemetry-strip {
+  background: rgba(8, 20, 39, 0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 194, 255, 0.32);
   border-radius: var(--radius-lg);
-  padding: 12px 16px;
-  min-width: 200px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-  pointer-events: none;
-  animation: fadeIn 0.2s ease;
-  z-index: 5;
+  padding: 10px 14px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  animation: fadeIn 0.25s ease;
 }
 
 @keyframes fadeIn {
@@ -128,53 +134,107 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.globe3d-inspect-title {
+.globe3d-telemetry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.globe3d-telemetry-title {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
   font-size: 13px;
   color: #FFFFFF;
 }
 
 .globe3d-inspect-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow: 0 0 6px var(--color-accent);
+  background: #F59E0B;
+  box-shadow: 0 0 8px #F59E0B;
+}
+
+.globe3d-inspect-code {
+  font-size: 11px;
+  color: var(--color-accent);
+  font-weight: 700;
 }
 
 .globe3d-inspect-region {
   font-size: 10px;
   color: #94A3B8;
   background: rgba(255, 255, 255, 0.08);
-  padding: 1px 6px;
+  padding: 2px 7px;
   border-radius: 4px;
+}
+
+.globe3d-telemetry-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, rgba(0, 194, 255, 0.25) 0%, rgba(26, 60, 143, 0.6) 100%);
+  border: 1px solid rgba(0, 194, 255, 0.4);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all 0.2s ease;
   margin-left: auto;
 }
 
-.globe3d-inspect-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 6px;
+.globe3d-telemetry-cta:hover {
+  background: var(--color-accent);
+  color: #0A192F;
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 10px rgba(0, 194, 255, 0.4);
 }
 
-.globe3d-inspect-label {
-  display: block;
+.globe3d-telemetry-metrics {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  gap: 14px;
+  align-items: center;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.globe3d-telemetry-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.globe3d-telemetry-lbl {
   font-size: 9.5px;
   color: #94A3B8;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
-.globe3d-inspect-val {
-  display: block;
+.globe3d-telemetry-val {
   font-size: 12px;
   color: #FFFFFF;
-  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.globe3d-telemetry-stat--sectors {
+  min-width: 0;
+}
+
+.globe3d-telemetry-val-text {
+  font-size: 11px;
+  color: #CBD5E1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 
 .globe3d-drag-hint {
@@ -182,15 +242,103 @@
   bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(10, 25, 47, 0.7);
+  background: rgba(8, 20, 39, 0.85);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-full);
-  padding: 4px 12px;
-  font-size: 10px;
+  padding: 4px 14px;
+  font-size: 10.5px;
   color: #94A3B8;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Quick Country Bar (22 Focus Markets) */
+.globe3d-country-bar {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.globe3d-country-bar__label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.globe3d-country-bar__chips {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 3px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 194, 255, 0.3) transparent;
+}
+
+.globe3d-country-bar__chips::-webkit-scrollbar {
+  height: 4px;
+}
+.globe3d-country-bar__chips::-webkit-scrollbar-thumb {
+  background: rgba(0, 194, 255, 0.3);
+  border-radius: 4px;
+}
+
+.globe3d-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.globe3d-chip-code {
+  font-weight: 800;
+  color: var(--color-accent);
+  font-size: 9.5px;
+}
+
+.globe3d-chip:hover {
+  background: rgba(0, 194, 255, 0.18);
+  border-color: rgba(0, 194, 255, 0.4);
+  color: #FFFFFF;
+}
+
+.globe3d-chip.active {
+  background: var(--color-accent);
+  color: #0A192F;
+  border-color: var(--color-accent);
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0, 194, 255, 0.35);
+}
+.globe3d-chip.active .globe3d-chip-code {
+  color: #0A192F;
+}
+
+.globe3d-chip--more {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #FDE68A;
+  font-size: 9.5px;
+  font-weight: 700;
+  cursor: default;
 }
 
 /* Controls Bar */
@@ -198,9 +346,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 12px;
-  padding-top: 14px;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   z-index: 2;
@@ -260,61 +408,22 @@
   color: #FFFFFF;
 }
 
-.spin-anim {
-  animation: spin 10s linear infinite;
+.spin-icon {
+  animation: spinSlow 8s linear infinite;
 }
 
-@keyframes spin {
+@keyframes spinSlow {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-/* Bottom Metrics Strip */
-.globe3d-metrics-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 14px;
-  padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.globe3d-metric {
-  text-align: center;
-}
-
-.globe3d-metric-num {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 800;
-  color: #FFFFFF;
-  display: block;
-}
-
-.globe3d-metric-lbl {
-  font-size: 10px;
-  color: #94A3B8;
-  margin-top: 2px;
-  display: block;
-}
-
-.globe3d-metric-divider {
-  width: 1px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
 @media (max-width: 640px) {
   .globe3d-canvas-wrap {
-    height: 300px;
+    height: 310px;
   }
-  .globe3d-metrics-strip {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .globe3d-metric-divider {
-    display: none;
+  .globe3d-inspect-card {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
   }
 }

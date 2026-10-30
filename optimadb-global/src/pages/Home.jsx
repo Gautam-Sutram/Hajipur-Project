@@ -2,38 +2,54 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Database, ShieldCheck, TrendingUp, MailCheck, Mail,
-  PieChart, Target, ArrowRightLeft, BarChart3,
+  PieChart, Target, ArrowRightLeft, BarChart3, Calendar,
   CheckCircle2, Globe, Users, Award, ArrowRight, Star,
-  Cpu, Heart, Landmark, Factory, Building2, GraduationCap, ShoppingCart, Zap, Truck, Scale, Megaphone,
-  Sparkles, ArrowUpRight, Check, SlidersHorizontal, Layers, Activity
+  Cpu, HeartPulse, Landmark, Briefcase, Dumbbell, Wrench,
+  Film, Building2, Zap, Palette, UserCheck, Pill, TreePine,
+  Truck, UtensilsCrossed, Flame, Compass, Shirt, Printer,
+  Sparkles, ShoppingCart, Cog, BookOpen, Utensils, Hotel,
+  Package, HardHat, BatteryCharging, Box, Layers, Sun, Home as HomeIcon,
+  ShieldAlert, Plane, Apple, GraduationCap,
+  ArrowUpRight, Check, SlidersHorizontal, Activity, Server
 } from 'lucide-react'
 import SEOHead from '../components/SEOHead'
 import { COMPANY, SERVICES, INDUSTRIES, TESTIMONIALS } from '../data/siteData'
 import Globe3D from '../components/Globe3D'
+import OptimaDBEngine3D from '../components/OptimaDBEngine3D'
+import EventsShowcase from '../components/EventsShowcase'
 import './Home.css'
 
-const ICON_MAP = { Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3 }
+const ICON_MAP = {
+  Database, ShieldCheck, TrendingUp, MailCheck, Mail,
+  PieChart, Target, ArrowRightLeft, BarChart3, Calendar
+}
+
 const INDUSTRY_ICON_MAP = {
-  Cpu, Heart, Landmark, Factory, Building2, GraduationCap, ShoppingCart, Zap, Truck, Scale, Megaphone, Globe, ShieldCheck
+  GraduationCap, Cpu, Landmark, HeartPulse, Briefcase, Dumbbell, Wrench,
+  Film, Building2, Zap, TrendingUp, Users, Palette, UserCheck, Pill,
+  TreePine, Truck, UtensilsCrossed, Flame, Compass, Shirt, Printer,
+  Sparkles, ShoppingCart, Cog, BookOpen, Utensils, Hotel, Package,
+  HardHat, BatteryCharging, Box, Layers, Sun, Home: HomeIcon,
+  ShieldAlert, Plane, Apple, Globe, ShieldCheck
 }
 
 export default function Home() {
   // Interactive Audience Scoper State
-  const [activeIndustry, setActiveIndustry] = useState('Technology & SaaS')
-  const [activeRegion, setActiveRegion] = useState('North America')
+  const [activeIndustry, setActiveIndustry] = useState('IT & Technology')
+  const [activeRegion, setActiveRegion] = useState('North America (US & CA)')
   const [activeSeniority, setActiveSeniority] = useState('C-Suite / VP')
   const [recordTarget, setRecordTarget] = useState(15000)
 
   // Calculate dynamic scoping estimates
   const currentInd = INDUSTRIES.find(i => i.name === activeIndustry) || INDUSTRIES[0]
   const estimatedMatches = Math.round((recordTarget * 1.85) / 1000) * 1000
-  const deliverabilityRate = currentInd.sla || '99.2%'
+  const deliverabilityRate = currentInd.sla || '99.5%'
 
   return (
     <>
       <SEOHead
-        title="Your Gateway to Global Business Data"
-        description="OptimaDB Global provides premium B2B data solutions — verified contact lists, data enrichment, email validation, and database cleansing across 170+ countries and 16 industries."
+        title="OptimaDB Global — Verified B2B Data & Global Trade Show Intelligence"
+        description="OptimaDB Global delivers premium B2B data solutions across 22 primary markets and 38 commercial industries. Verified contact lists, trade show intelligence, and 99.5% deliverability SLA."
         canonical="https://optimadbglobal.com/"
       />
 
@@ -47,7 +63,7 @@ export default function Home() {
         <div className="container hero__inner">
           <div className="hero__content">
             <div className="section-label text-white" style={{ color: 'var(--color-accent)' }}>
-              <Sparkles size={14} className="icon-pulse" /> Global B2B Data Solutions
+              <Sparkles size={14} className="icon-pulse" /> Global B2B Intelligence Infrastructure
             </div>
             <h1 className="heading-xl hero__title">
               Your Data,<br />
@@ -56,25 +72,25 @@ export default function Home() {
               Accelerated.
             </h1>
             <p className="hero__subtitle">
-              Precision B2B data solutions for global sales and marketing teams — verified across 170+ countries, refreshed every 7 days.
+              High-precision B2B data solutions across 22 priority global markets and 38 commercial verticals — 100% verified, refreshed every 7 days, with 99.5% deliverability guarantee.
             </p>
             <div className="hero__actions">
               <Link to="/contact" className="btn btn-accent btn-lg" id="hero-primary-cta">
                 Get a Free Sample <ArrowRight size={18} />
               </Link>
               <Link to="/services" className="btn btn-outline-white btn-lg" id="hero-secondary-cta">
-                Explore Services
+                Explore 10 Services
               </Link>
             </div>
             <div className="hero__trust">
               {COMPANY.compliance.map(c => (
                 <span key={c} className="hero__trust-badge"><CheckCircle2 size={13} /> {c}</span>
               ))}
-              <span className="hero__trust-badge"><Globe size={13} /> 170+ Countries</span>
+              <span className="hero__trust-badge"><Globe size={13} /> 22 Focus Markets</span>
             </div>
           </div>
 
-          {/* Hero Visual — Interactive 3D Real-Time Globe */}
+          {/* Hero Visual — Interactive 3D Real-Time Telemetry Globe */}
           <div className="hero__visual">
             <Globe3D />
           </div>
@@ -93,6 +109,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 3D DATABASE ARCHITECTURE & QUERY ENGINE ── */}
+      <OptimaDBEngine3D />
+
       {/* ── INTERACTIVE LIVE AUDIENCE SCOPING ENGINE ── */}
       <section className="section bg-alt audience-scoper-section" aria-label="Interactive Audience Scoper">
         <div className="container">
@@ -103,8 +122,8 @@ export default function Home() {
             Scope Your Target ICP Audience<br />
             <span className="gradient-text">Before You Invest A Single Dollar.</span>
           </h2>
-          <p className="text-center" style={{ maxWidth: '640px', margin: 'var(--space-3) auto var(--space-10)', color: 'var(--color-text-muted)' }}>
-            Select your exact criteria below to simulate audience volume, verified direct-dial depth, and estimated turnaround.
+          <p className="text-center" style={{ maxWidth: '680px', margin: 'var(--space-3) auto var(--space-10)', color: 'var(--color-text-muted)' }}>
+            Select your exact criteria below to simulate verified record volume, direct-dial depth, and estimated turnaround across our 38 commercial industries.
           </p>
 
           <div className="audience-scoper-card glass">
@@ -113,9 +132,20 @@ export default function Home() {
               <div className="audience-scoper-controls">
                 {/* 1. Target Industry */}
                 <div className="scoper-group">
-                  <label className="scoper-label">1. Target Vertical Industry</label>
+                  <label className="scoper-label">1. Target Commercial Industry (Select from 38 Verticals)</label>
                   <div className="scoper-pills">
-                    {['Technology & SaaS', 'Healthcare & Pharma', 'Financial Services & Fintech', 'Manufacturing & Industry 4.0', 'Retail & E-Commerce', 'Energy, CleanTech & Utilities'].map(ind => (
+                    {[
+                      'IT & Technology',
+                      'Banking & Finance',
+                      'Medical & Pharma',
+                      'Industrial Engineering',
+                      'E-Commerce',
+                      'Renewable Energy',
+                      'Building & Construction',
+                      'Logistics & Transportation',
+                      'Petroleum, Oil & Gas',
+                      'Faishon & Technologies'
+                    ].map(ind => (
                       <button
                         key={ind}
                         type="button"
@@ -130,9 +160,15 @@ export default function Home() {
 
                 {/* 2. Target Geography */}
                 <div className="scoper-group">
-                  <label className="scoper-label">2. Target Geographic Market</label>
+                  <label className="scoper-label">2. Target Geographic Market (22 Priority Hubs)</label>
                   <div className="scoper-pills">
-                    {['North America (US & CA)', 'EMEA (UK & Western Europe)', 'Asia-Pacific & ANZ', 'Latin America', 'Global Enterprise'].map(reg => (
+                    {[
+                      'North America (US & CA)',
+                      'Western Europe (UK, DE, FR, IT, ES, NL)',
+                      'Nordic & Regional (IE, FI, DK, LU, PT)',
+                      'Asia-Pacific (AU, JP, CN, IN, TW, HK)',
+                      'Middle East & Eurasia (UAE, TR, RU)'
+                    ].map(reg => (
                       <button
                         key={reg}
                         type="button"
@@ -149,7 +185,7 @@ export default function Home() {
                 <div className="scoper-group">
                   <label className="scoper-label">3. Decision-Maker Seniority Level</label>
                   <div className="scoper-pills">
-                    {['C-Suite / VP', 'Managing Directors', 'Procurement & Operations', 'Department Heads'].map(sen => (
+                    {['C-Suite / VP', 'Managing Directors', 'Procurement & Operations', 'Department Heads & Leads'].map(sen => (
                       <button
                         key={sen}
                         type="button"
@@ -199,12 +235,12 @@ export default function Home() {
 
                   <div className="scoper-metric-breakdown">
                     <div className="scoper-metric-item">
-                      <span className="scoper-metric-label">Industry Reach</span>
-                      <strong className="scoper-metric-value">{currentInd.contacts} Pool</strong>
+                      <span className="scoper-metric-label">Industry Pool</span>
+                      <strong className="scoper-metric-value">{currentInd.contacts} Available</strong>
                     </div>
                     <div className="scoper-metric-item">
-                      <span className="scoper-metric-label">Direct Dial Ratio</span>
-                      <strong className="scoper-metric-value text-accent">78% - 84% Verified</strong>
+                      <span className="scoper-metric-label">Direct Dial Depth</span>
+                      <strong className="scoper-metric-value text-accent">78% - 85% Verified</strong>
                     </div>
                     <div className="scoper-metric-item">
                       <span className="scoper-metric-label">Deliverability SLA</span>
@@ -225,7 +261,7 @@ export default function Home() {
                       Request 50 Free Sample Records <ArrowRight size={16} />
                     </Link>
                     <p className="scoper-guarantee-note">
-                      ✓ No credit card required &nbsp;•&nbsp; ✓ GDPR & CCPA compliant &nbsp;•&nbsp; ✓ Free bounce replacement
+                      ✓ Zero government data &nbsp;•&nbsp; ✓ GDPR & CCPA compliant &nbsp;•&nbsp; ✓ Free bounce replacement
                     </p>
                   </div>
                 </div>
@@ -235,7 +271,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SERVICES ── */}
+      {/* ── 10 CORE SERVICES ── */}
       <section className="section services" id="services" aria-labelledby="services-heading">
         <div className="container">
           <div className="section-label">What We Offer</div>
@@ -245,7 +281,7 @@ export default function Home() {
               <span className="gradient-text">kept alive.</span>
             </h2>
             <p className="services__subtitle">
-              Lists decay the moment they're exported. Our services keep yours accurate, complete, and deliverable — across every channel.
+              Lists decay the moment they're exported. Our 10 core services keep yours accurate, verified, and deliverable — across every commercial channel.
             </p>
           </div>
           <div className="services__grid" role="list">
@@ -274,6 +310,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── TRADE SHOW & EVENT AUDIENCE INTELLIGENCE ── */}
+      <EventsShowcase />
+
       {/* ── HOW IT WORKS ── */}
       <section className="section section--sm how-it-works bg-alt" aria-labelledby="hiw-heading">
         <div className="container">
@@ -281,9 +320,9 @@ export default function Home() {
           <h2 className="heading-md text-center" id="hiw-heading">From Request to Delivery<br /><span className="gradient-text">in 3 Simple Steps</span></h2>
           <div className="hiw__grid">
             {[
-              { step: '01', title: 'Tell Us Your Market', desc: 'Share your target audience — industry, geography, job titles, company size. We scope your exact requirements.', icon: <Users size={28} /> },
-              { step: '02', title: 'We Build & Verify', desc: 'Our team builds your custom dataset and runs it through our 7-step verification process for maximum accuracy.', icon: <ShieldCheck size={28} /> },
-              { step: '03', title: 'Receive & Activate', desc: 'Receive your clean, deliverable data in any format. Integrate directly with your CRM and start your campaign.', icon: <Award size={28} /> },
+              { step: '01', title: 'Tell Us Your Market', desc: 'Share your target audience — 38 commercial industries, 22 focus countries, job titles, or marquee trade shows. We scope your exact requirements.', icon: <Users size={28} /> },
+              { step: '02', title: 'We Build & Verify', desc: 'Our team builds your custom dataset and runs it through our 7-step SMTP verification process with zero government records.', icon: <ShieldCheck size={28} /> },
+              { step: '03', title: 'Receive & Activate', desc: 'Receive clean, deliverable data with direct dials and corporate emails. Integrate directly into your CRM with 99.5% deliverability SLA.', icon: <Award size={28} /> },
             ].map(item => (
               <div key={item.step} className="hiw__item">
                 <div className="hiw__step-num">{item.step}</div>
@@ -296,27 +335,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 16+ INDUSTRIES — Exceptional Horizontally Floating Showcase ── */}
+      {/* ── 38 COMMERCIAL INDUSTRIES — Dual-Row Floating Marquee ── */}
       <section className="section industries-marquee-section" id="industries" aria-labelledby="industries-heading">
         <div className="container" style={{ textAlign: 'center', marginBottom: 'var(--space-8)' }}>
           <div className="section-label" style={{ justifyContent: 'center' }}>
-            <Sparkles size={14} className="icon-pulse" /> Precision Industry Reach
+            <Sparkles size={14} className="icon-pulse" /> 100% Commercial B2B Verticals
           </div>
           <h2 className="heading-lg" id="industries-heading">
-            16+ Industries.<br />
-            <span className="gradient-text">Every Decision-Maker.</span>
+            38 Commercial Industries.<br />
+            <span className="gradient-text">Zero Public-Sector Bloat.</span>
           </h2>
-          <p style={{ maxWidth: '680px', margin: 'var(--space-3) auto 0', color: 'var(--color-text-muted)', fontSize: 'var(--fs-md)' }}>
-            Continuous 7-day verified contact telemetry across all major verticals. Hover any card to inspect active volumes and decision-maker roles.
+          <p style={{ maxWidth: '720px', margin: 'var(--space-3) auto 0', color: 'var(--color-text-muted)', fontSize: 'var(--fs-md)' }}>
+            Continuous 7-day verified contact telemetry across all 38 commercial industries requested by client. Strictly enterprise decision-makers across manufacturing, tech, energy, pharma, retail, and finance.
           </p>
         </div>
 
-        {/* Dual-Row Horizontally Floating Infinite Marquee */}
+        {/* Dual-Row Horizontally Floating Infinite Marquee (19 items per track) */}
         <div className="optima-marquee-wrapper" aria-label="Horizontally floating industry marquee">
-          {/* Row 1 — Leftward Infinite Scroll */}
+          {/* Row 1 — First 19 Industries */}
           <div className="optima-marquee-row">
             <div className="optima-marquee-track optima-marquee-track--left">
-              {[...INDUSTRIES.slice(0, 8), ...INDUSTRIES.slice(0, 8)].map((ind, idx) => {
+              {[...INDUSTRIES.slice(0, 19), ...INDUSTRIES.slice(0, 19)].map((ind, idx) => {
                 const Icon = INDUSTRY_ICON_MAP[ind.icon] || Globe
                 return (
                   <Link
@@ -356,10 +395,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Row 2 — Rightward Infinite Scroll */}
+          {/* Row 2 — Second 19 Industries */}
           <div className="optima-marquee-row" style={{ marginTop: '16px' }}>
             <div className="optima-marquee-track optima-marquee-track--right">
-              {[...INDUSTRIES.slice(8, 16), ...INDUSTRIES.slice(8, 16)].map((ind, idx) => {
+              {[...INDUSTRIES.slice(19, 38), ...INDUSTRIES.slice(19, 38)].map((ind, idx) => {
                 const Icon = INDUSTRY_ICON_MAP[ind.icon] || Globe
                 return (
                   <Link
@@ -404,12 +443,12 @@ export default function Home() {
         <div className="container" style={{ marginTop: 'var(--space-10)' }}>
           <div className="optima-marquee-cta-card">
             <div className="optima-marquee-cta-card__left">
-              <h3>Need a custom title taxonomy or niche sub-industry list?</h3>
-              <p>Our research team builds verified lists matching your exact criteria across 170+ countries.</p>
+              <h3>Need a custom title taxonomy or niche sub-industry roster?</h3>
+              <p>Our research team builds verified datasets matching your exact criteria across all 38 commercial industries and 22 focus countries.</p>
             </div>
             <div className="optima-marquee-cta-card__right">
               <Link to="/industries" className="btn btn-outline" id="industries-view-all-btn">
-                All 16+ Industries <ArrowRight size={16} />
+                All 38 Commercial Industries <ArrowRight size={16} />
               </Link>
               <Link to="/contact" className="btn btn-primary" id="industries-custom-cta">
                 Request Custom Industry Dataset
@@ -455,7 +494,7 @@ export default function Home() {
         <div className="container cta-banner__inner">
           <div className="cta-banner__content">
             <h2 className="heading-md">Tell us the market.<br /><span className="gradient-text">We'll map the contacts.</span></h2>
-            <p>Request a free sample of any industry list, or talk to us about a custom dataset for your next campaign.</p>
+            <p>Request a free sample of any industry or trade show list, or talk to us about a custom dataset across our 22 priority focus countries.</p>
           </div>
           <div className="cta-banner__actions">
             <Link to="/contact" className="btn btn-primary btn-lg" id="cta-banner-sample-btn">

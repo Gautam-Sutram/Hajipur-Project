@@ -63,7 +63,8 @@ export default function Footer() {
             <h3 className="footer__col-title">Company</h3>
             <ul className="footer__links">
               <li><Link to="/about"      className="footer__link">About Us</Link></li>
-              <li><Link to="/industries" className="footer__link">Industries</Link></li>
+              <li><Link to="/industries" className="footer__link">Commercial Industries</Link></li>
+              <li><Link to="/services/event-audience-intelligence" className="footer__link">Trade Show Intelligence</Link></li>
               <li><Link to="/resources"  className="footer__link">Resources</Link></li>
               <li><Link to="/pricing"    className="footer__link">Pricing</Link></li>
               <li><Link to="/contact"    className="footer__link">Contact Us</Link></li>

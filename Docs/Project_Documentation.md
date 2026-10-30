@@ -303,21 +303,22 @@ Digitize Agency LLC is a **global B2B contact data provider** offering custom pr
 | Item | Detail |
 |------|--------|
 | **Name** | Info Vertex Solutions |
-| **Logo** | PNG provided by client |
+| **Logo** | Re-engineered in Brand Colors (Deep Forest Green `#064E3B` & Vibrant Emerald `#10B981`) |
 | **Positioning** | Data intelligence & B2B insights company |
 | **Tagline Suggestion** | *"At the Vertex of Data Intelligence."* |
 | **Target Audience** | Marketing agencies, lead generation teams, data resellers |
 
-### 6.2 Proposed Color Palette
+### 6.2 Brand Color Palette & Logo Alignment
 
-| Role | Color | Hex |
-|------|-------|-----|
-| Primary | Deep Forest Green | `#064E3B` |
-| Accent | Neon Teal | `#10B981` |
-| CTA Button | Warm Orange | `#F97316` |
-| Highlight | Light Aqua | `#A7F3D0` |
-| Background | Soft Cream | `#FFFBF5` |
-| Text | Dark Slate | `#1C2B2D` |
+| Role | Color | Hex | Applied in Logo |
+|------|-------|-----|-----------------|
+| Primary | Deep Forest Green | `#064E3B` | Word "Info", Mark "V", Footer Background |
+| Accent | Vibrant Emerald Green | `#10B981` | Word "Vertex", Mark "i", Orbital Swoosh Highlight |
+| Accent Light | Mint Green Highlight | `#34D399` | Upper arc of orbital swoosh |
+| Secondary Text | Refined Slate Gray | `#475569` | Word "SOLUTIONS", Vertical Divider Bar |
+| CTA Button | Warm Orange | `#F97316` | Navbar & Hero conversion buttons |
+| Background | Clean White / Soft Surface | `#FFFFFF` / `#F8FAF9` | Navbar Glass & Card Surfaces |
+| Text | Dark Slate | `#0F172A` | Core readable typography |
 
 ### 6.3 Proposed Typography
 - **Headings:** `Sora` (Google Fonts) — ExtraBold 800

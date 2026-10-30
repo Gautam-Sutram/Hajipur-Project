@@ -1,24 +1,24 @@
 import { Link } from 'react-router-dom'
-import { Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3, ArrowRight } from 'lucide-react'
+import { Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3, Calendar, ArrowRight } from 'lucide-react'
 import SEOHead from '../components/SEOHead'
 import { SERVICES } from '../data/siteData'
 import './InnerPage.css'
 
-const ICON_MAP = { Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3 }
+const ICON_MAP = { Database, ShieldCheck, TrendingUp, MailCheck, Mail, PieChart, Target, ArrowRightLeft, BarChart3, Calendar }
 
 export default function Services() {
   return (
     <>
       <SEOHead
-        title="B2B Data Services — 9 Premium Data Solutions"
-        description="Explore OptimaDB Global's full suite of B2B data services: contact data, database cleansing, data enrichment, email validation, lead management, and more."
+        title="B2B Data Services — 10 Premium Data Solutions"
+        description="Explore OptimaDB Global's full suite of B2B data services: contact data, database cleansing, data enrichment, email validation, trade show intelligence, lead management, and more."
         canonical="https://optimadbglobal.com/services"
       />
       <section className="inner-hero bg-gradient-primary">
         <div className="container inner-hero__inner">
           <div className="section-label" style={{ color: 'var(--color-accent)' }}>Our Services</div>
-          <h1 className="heading-lg text-white">9 Powerful Services.<br /><span style={{ color: 'var(--color-accent)' }}>One Data Partner.</span></h1>
-          <p className="inner-hero__sub">From verified contact lists to deep data enrichment — everything your sales and marketing team needs to accelerate growth globally.</p>
+          <h1 className="heading-lg text-white">10 Powerful Services.<br /><span style={{ color: 'var(--color-accent)' }}>One Data Partner.</span></h1>
+          <p className="inner-hero__sub">From verified contact lists and trade show attendee intelligence to deep data enrichment — everything your sales and marketing team needs to accelerate growth globally.</p>
         </div>
       </section>
       <section className="section">

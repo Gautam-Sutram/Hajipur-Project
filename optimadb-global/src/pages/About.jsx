@@ -40,7 +40,7 @@ export default function About() {
                 We believe that every business deserves access to accurate, actionable data. Our mission is to eliminate bad data from the sales equation — providing verified, enriched, and campaign-ready B2B contacts so your team can focus on what matters: building relationships and closing deals.
               </p>
               <p style={{ color: 'var(--color-text-muted)', marginTop: 'var(--space-4)', lineHeight: 1.8 }}>
-                With coverage across 170+ countries, 16+ industries, and 50M+ verified records refreshed every 7 days, OptimaDB Global is the trusted data partner for sales teams, marketing agencies, and growth-driven enterprises worldwide.
+                With coverage across 22 primary focus markets (and 170+ global countries), 38 commercial industries, 500+ marquee trade shows, and 50M+ verified records refreshed every 7 days, OptimaDB Global is the trusted data infrastructure partner for sales teams, marketing agencies, and growth-driven enterprises worldwide.
               </p>
               <Link to="/contact" className="btn btn-primary" style={{ marginTop: 'var(--space-8)' }} id="about-cta-btn">
                 Get a Free Sample <ArrowRight size={16} />
@@ -48,9 +48,9 @@ export default function About() {
             </div>
             <div className="about-values">
               {[
-                { icon: <Globe size={22} />, title: 'Global Coverage', desc: '170+ countries, 16+ industries — we go where your market is.' },
-                { icon: <Shield size={22} />, title: 'Data Integrity', desc: 'Every record verified through a 7-step process. GDPR & CCPA compliant.' },
-                { icon: <Users size={22} />, title: 'Client-First', desc: 'Your campaign goals drive every dataset we build. No generic lists.' },
+                { icon: <Globe size={22} />, title: 'Global Coverage', desc: '22 primary focus markets, 170+ countries, 38 commercial industries — we go where your market is.' },
+                { icon: <Shield size={22} />, title: 'Data Integrity', desc: 'Every record verified through a 7-step process. 100% commercial data with zero government records.' },
+                { icon: <Users size={22} />, title: 'Client-First', desc: 'Your campaign goals drive every dataset we build. Custom ICP scoping before you invest.' },
                 { icon: <CheckCircle2 size={22} />, title: '7-Day Refresh', desc: 'Data decays fast. We refresh every record every 7 days — automatically.' },
               ].map(v => (
                 <div key={v.title} className="value-card card">
