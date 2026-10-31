@@ -73,84 +73,84 @@ export default function ServiceDetail() {
               {/* Highlights & Delivery Parameters */}
               <div>
                 <h2 className="iv-detail-section-title">What You Receive in Every Delivery</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px' }}>
-                  {service.highlights.map((h, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9375rem', color: 'var(--c-text)' }}>
-                      <CheckCircle2 size={18} className="iv-text-accent" />
-                      <span>{h}</span>
-                    </div>
-                  ))}
+                  <div className="iv-service-highlights-grid">
+                    {service.highlights.map((h, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9375rem', color: 'var(--c-text)' }}>
+                        <CheckCircle2 size={18} className="iv-text-accent" />
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quality & Deliverability SLA */}
+                <div style={{ background: 'var(--c-primary-tint)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: 'var(--r-lg)', padding: '32px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                    <ShieldCheck size={28} className="iv-text-accent" />
+                    <h3 style={{ fontSize: '1.25rem', color: 'var(--c-primary-dark)' }}>
+                      Our 99.2% Deliverability SLA Guarantee
+                    </h3>
+                  </div>
+                  <p style={{ fontSize: '0.9375rem', color: 'var(--c-text-secondary)', lineHeight: '1.6', marginBottom: '16px' }}>
+                    We stand 100% behind the accuracy of our records. If you experience hard bounces above 2% on any campaign executed within 14 days of delivery, our team provides 2-for-1 replacement credits or updated direct phone extensions at zero cost.
+                  </p>
+                  <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '0.8125rem', fontWeight: '700', color: 'var(--c-primary)' }}>
+                    <span>✓ 7-Step Verification</span>
+                    <span>✓ Zero Spam-Traps</span>
+                    <span>✓ GDPR / CCPA Compliant</span>
+                    <span>✓ Instant CSV / XLSX Export</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Quality & Deliverability SLA */}
-              <div style={{ background: 'var(--c-primary-tint)', border: '1px solid rgba(16, 185, 129, 0.25)', borderRadius: 'var(--r-lg)', padding: '32px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                  <ShieldCheck size={28} className="iv-text-accent" />
-                  <h3 style={{ fontSize: '1.25rem', color: 'var(--c-primary-dark)' }}>
-                    Our 99.2% Deliverability SLA Guarantee
-                  </h3>
-                </div>
-                <p style={{ fontSize: '0.9375rem', color: 'var(--c-text-secondary)', lineHeight: '1.6', marginBottom: '16px' }}>
-                  We stand 100% behind the accuracy of our records. If you experience hard bounces above 2% on any campaign executed within 14 days of delivery, our team provides 2-for-1 replacement credits or updated direct phone extensions at zero cost.
+              {/* Sticky Sidebar */}
+              <aside className="iv-sidebar-box">
+                <span className="badge badge--emerald" style={{ marginBottom: '12px' }}>
+                  Service Summary
+                </span>
+                <h3 className="iv-sidebar-box__title">Scope Your Custom List</h3>
+                <p className="iv-sidebar-box__desc">
+                  Request a complimentary 50-record sample for {service.title} matched to your target accounts.
                 </p>
-                <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '0.8125rem', fontWeight: '700', color: 'var(--c-primary)' }}>
-                  <span>✓ 7-Step Verification</span>
-                  <span>✓ Zero Spam-Traps</span>
-                  <span>✓ GDPR / CCPA Compliant</span>
-                  <span>✓ Instant CSV / XLSX Export</span>
+
+                <div style={{ background: '#F8FAFC', padding: '16px', borderRadius: 'var(--r-md)', marginBottom: '20px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.8125rem' }}>
+                    <span style={{ color: 'var(--c-text-muted)' }}>Database Reach:</span>
+                    <span style={{ fontWeight: '700', color: 'var(--c-primary)' }}>{service.metrics.count}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.8125rem' }}>
+                    <span style={{ color: 'var(--c-text-muted)' }}>Deliverability SLA:</span>
+                    <span style={{ fontWeight: '700', color: 'var(--c-primary-dark)' }}>{service.metrics.accuracy}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem' }}>
+                    <span style={{ color: 'var(--c-text-muted)' }}>Turnaround:</span>
+                    <span style={{ fontWeight: '700', color: 'var(--c-text)' }}>{service.metrics.turnover}</span>
+                  </div>
                 </div>
-              </div>
+
+                <Link
+                  to="/contact"
+                  className="btn btn-primary"
+                  style={{ width: '100%', marginBottom: '12px' }}
+                >
+                  <span>Request Free Sample Data</span>
+                  <ArrowRight size={15} />
+                </Link>
+
+                <Link
+                  to="/pricing"
+                  className="btn btn-outline"
+                  style={{ width: '100%' }}
+                >
+                  <span>View Transparent Pricing</span>
+                </Link>
+
+                <div style={{ marginTop: '24px', borderTop: '1px solid var(--c-border)', paddingTop: '16px', fontSize: '0.8125rem', color: 'var(--c-text-muted)' }}>
+                  Need immediate phone scoping? Call toll-free: <strong>{COMPANY.phone}</strong>
+                </div>
+              </aside>
             </div>
-
-            {/* Sticky Sidebar */}
-            <aside className="iv-sidebar-box">
-              <span className="badge badge--emerald" style={{ marginBottom: '12px' }}>
-                Service Summary
-              </span>
-              <h3 className="iv-sidebar-box__title">Scope Your Custom List</h3>
-              <p className="iv-sidebar-box__desc">
-                Request a complimentary 50-record sample for {service.title} matched to your target accounts.
-              </p>
-
-              <div style={{ background: '#F8FAFC', padding: '16px', borderRadius: 'var(--r-md)', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.8125rem' }}>
-                  <span style={{ color: 'var(--c-text-muted)' }}>Database Reach:</span>
-                  <span style={{ fontWeight: '700', color: 'var(--c-primary)' }}>{service.metrics.count}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.8125rem' }}>
-                  <span style={{ color: 'var(--c-text-muted)' }}>Deliverability SLA:</span>
-                  <span style={{ fontWeight: '700', color: 'var(--c-primary-dark)' }}>{service.metrics.accuracy}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem' }}>
-                  <span style={{ color: 'var(--c-text-muted)' }}>Turnaround:</span>
-                  <span style={{ fontWeight: '700', color: 'var(--c-text)' }}>{service.metrics.turnover}</span>
-                </div>
-              </div>
-
-              <Link
-                to="/contact"
-                className="btn btn-primary"
-                style={{ width: '100%', marginBottom: '12px' }}
-              >
-                <span>Request Free Sample Data</span>
-                <ArrowRight size={15} />
-              </Link>
-
-              <Link
-                to="/pricing"
-                className="btn btn-outline"
-                style={{ width: '100%' }}
-              >
-                <span>View Transparent Pricing</span>
-              </Link>
-
-              <div style={{ marginTop: '24px', borderTop: '1px solid var(--c-border)', paddingTop: '16px', fontSize: '0.8125rem', color: 'var(--c-text-muted)' }}>
-                Need immediate phone scoping? Call toll-free: <strong>{COMPANY.phone}</strong>
-              </div>
-            </aside>
           </div>
-        </div>
       </section>
     </>
   )

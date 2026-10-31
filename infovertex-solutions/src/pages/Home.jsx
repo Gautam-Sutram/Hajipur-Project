@@ -360,13 +360,13 @@ export default function Home() {
             ))}
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '48px' }}>
-            <Link to="/services" className="btn btn-outline btn-lg">
-              <span>View Comprehensive Deliverables & Schemas</span>
-              <ArrowRight size={16} />
-            </Link>
+              <div style={{ textAlign: 'center', marginTop: '48px', maxWidth: '100%' }}>
+                <Link to="/services" className="btn btn-outline btn-lg iv-deliverables-btn">
+                  <span>View Comprehensive Deliverables & Schemas</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
           </div>
-        </div>
       </section>
 
       {/* ── 4. 4-STEP PROCESS / HOW IT WORKS ── */}

@@ -38,33 +38,33 @@ export default function Resources() {
       {/* Resources Grid */}
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px' }}>
-            {RESOURCES.map((r) => (
-              <div key={r.id} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                  <span className="badge badge--emerald">{r.category}</span>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--c-text-muted)' }}>{r.readTime}</span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '28px' }}>
+              {RESOURCES.map((r) => (
+                <div key={r.id} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                    <span className="badge badge--emerald">{r.category}</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--c-text-muted)' }}>{r.readTime}</span>
+                  </div>
+
+                  <h3 style={{ fontSize: '1.25rem', color: 'var(--c-primary)', marginBottom: '12px', lineHeight: '1.3' }}>
+                    {r.title}
+                  </h3>
+
+                  <p style={{ fontSize: '0.875rem', color: 'var(--c-text-secondary)', lineHeight: '1.55', marginBottom: '24px', flexGrow: 1 }}>
+                    {r.desc}
+                  </p>
+
+                  <div style={{ borderTop: '1px solid var(--c-border)', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.8125rem', fontWeight: '600', color: 'var(--c-text-muted)' }}>{r.type}</span>
+                    <Link to="/contact" className="btn btn-outline btn-sm">
+                      <span>Access Resource</span>
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
                 </div>
-
-                <h3 style={{ fontSize: '1.25rem', color: 'var(--c-primary)', marginBottom: '12px', lineHeight: '1.3' }}>
-                  {r.title}
-                </h3>
-
-                <p style={{ fontSize: '0.875rem', color: 'var(--c-text-secondary)', lineHeight: '1.55', marginBottom: '24px', flexGrow: 1 }}>
-                  {r.desc}
-                </p>
-
-                <div style={{ borderTop: '1px solid var(--c-border)', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: '0.8125rem', fontWeight: '600', color: 'var(--c-text-muted)' }}>{r.type}</span>
-                  <Link to="/contact" className="btn btn-outline btn-sm">
-                    <span>Access Resource</span>
-                    <ArrowRight size={13} />
-                  </Link>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Free Sample Download CTA */}

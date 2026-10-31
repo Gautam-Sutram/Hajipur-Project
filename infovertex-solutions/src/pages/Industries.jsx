@@ -38,31 +38,31 @@ export default function Industries() {
       {/* 12 Industry Cards Grid */}
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '28px' }}>
-            {INDUSTRIES.map((ind) => (
-              <div key={ind.id} className="card">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                  <h2 style={{ fontSize: '1.25rem', color: 'var(--c-primary)' }}>{ind.name}</h2>
-                  <span className="badge badge--emerald">{ind.count}</span>
-                </div>
-
-                <p style={{ fontSize: '0.9375rem', color: 'var(--c-text-secondary)', lineHeight: '1.55', marginBottom: '20px' }}>
-                  {ind.desc}
-                </p>
-
-                <div style={{ borderTop: '1px solid var(--c-border)', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--c-text-muted)' }}>
-                    <span>99.2% Deliverability Guarantee</span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '28px' }}>
+              {INDUSTRIES.map((ind) => (
+                <div key={ind.id} className="card">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                    <h2 style={{ fontSize: '1.25rem', color: 'var(--c-primary)' }}>{ind.name}</h2>
+                    <span className="badge badge--emerald">{ind.count}</span>
                   </div>
-                  <Link to="/contact" className="btn btn-primary btn-sm">
-                    <span>Sample Data</span>
-                    <ArrowRight size={13} />
-                  </Link>
+
+                  <p style={{ fontSize: '0.9375rem', color: 'var(--c-text-secondary)', lineHeight: '1.55', marginBottom: '20px' }}>
+                    {ind.desc}
+                  </p>
+
+                  <div style={{ borderTop: '1px solid var(--c-border)', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--c-text-muted)' }}>
+                      <span>99.2% Deliverability Guarantee</span>
+                    </div>
+                    <Link to="/contact" className="btn btn-primary btn-sm">
+                      <span>Sample Data</span>
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Compliance Strip */}

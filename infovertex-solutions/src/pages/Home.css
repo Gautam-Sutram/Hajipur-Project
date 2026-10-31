@@ -280,6 +280,17 @@
   gap: 28px;
 }
 
+.iv-deliverables-btn {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.35;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .iv-service-card {
   background: #FFFFFF;
   border: 1px solid var(--c-border);
@@ -683,7 +694,22 @@
   }
 }
 
+@media (max-width: 768px) {
+  .iv-services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .iv-service-card {
+    padding: 24px 20px;
+  }
+}
+
 @media (max-width: 640px) {
+  .iv-deliverables-btn {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 0.875rem;
+  }
   .iv-stats-grid {
     grid-template-columns: 1fr;
   }
@@ -999,6 +1025,7 @@
 .iv-cta-banner {
   background: linear-gradient(135deg, #022C22 0%, #064E3B 60%, #08332A 100%);
   position: relative;
+  overflow: hidden;
 }
 
 .iv-cta-banner::before {
